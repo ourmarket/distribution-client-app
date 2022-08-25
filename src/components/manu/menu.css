@@ -1,0 +1,28 @@
+.menu__container {
+  height: 60px;
+  background-color: #ccc;
+  position: sticky;
+  bottom: 0;
+}
+
+.menu__container ul {
+  display: flex;
+  height: 100%;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+}
+.menu__container ul li {
+  flex: 1;
+  border-left: 1px solid black;
+  *background-color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu__container ul li a {
+  font-size: 36px;
+  text-decoration: none;
+  color: rgb(219, 18, 18);
+}
