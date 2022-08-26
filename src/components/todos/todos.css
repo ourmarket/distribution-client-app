@@ -1,0 +1,40 @@
+.todos__container{
+    min-height: 100vh;
+    text-align: center;
+    padding: 20px 10px;
+}
+.todos__container h2{
+    margin-bottom: 15px;
+    font-family: var(--font-1);
+    letter-spacing: 2px;
+}
+.row{
+    display: flex;
+}
+.col{
+    flex-direction: column;
+    *text-align: left;
+    border: 1px solid #ccc;
+    padding: 10px 2px;
+}
+.col-1{
+    flex: 1;
+}
+.col-2{
+    flex: 2;
+}
+.col-3{
+    flex: 3;
+}
+.title{
+    font-size: 18px;
+    font-weight: 600;
+}
+.btn-estado{
+    padding: 4px 8px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 600;
+}
+

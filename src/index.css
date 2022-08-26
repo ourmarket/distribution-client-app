@@ -4,5 +4,35 @@
   padding: 0;
   box-sizing: border-box;
 }
+:root{
+  --font-1:  "Bebas Neue", cursive;
+  --color-pendiente: #ddd613;
+  --color-completado: #37b00b;
+  --color-rechazado: #dd132b;
+  --color-red: #db1212;;
+}
+.pendiente{
+  background-color: var(--color-pendiente);
+}
+.completado{
+  background-color: var(--color-completado);
+}
+.rachazado{
+  background-color: var(--color-rechazado);
+}
+.flex{
+  display: flex;
+}
+.sb{
+  justify-content: space-between;
+}
+.center{
+  justify-content: center;
+}
+.bold{
+  font-weight: bold;
+  font-size: 22px;
+  letter-spacing: 2px;
+}
 
 
