@@ -2,36 +2,38 @@ import "./auth.css";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/userSlice";
+import api from "../../api/api";
 
 const SignupSchema = Yup.object().shape({
-  username: Yup.string().required("Requerido"),
-  email: Yup.string().email("Email invalido").required("Requerido"),
+  patente: Yup.string().required("Requerido"),
   password: Yup.string().min(6, "6 caracteres minimo").required("Requerido"),
-  rePassword: Yup.string()
-    .min(6, "6 caracteres minimo")
-    .required("Requerido")
-    .oneOf([Yup.ref("password")], "Las contraseñas deben ser iguales"),
 });
 
 export const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const handleSubmit = async (values) => {
-    /*  setIsLoading(true);
+    setIsLoading(true);
+    const { patente, password } = values;
+    const { data } = await api.post("/auth/login_repartidor", {
+      patente,
+      password,
+    });
 
-    const response = await registerApi(values);
+    console.log(data);
 
-    //console.log(response);
-
-    if (response?.jwt) {
+    if (data?.token) {
       dispatch(
         login({
-          id: response.user.id,
-          username: response.user.username,
-          email: response.user.email,
-          jwt: response.jwt,
+          nombre: data.repartidor.nombre,
+          patente: data.repartidor.patente,
+          jwt: data.token,
         })
       );
 
@@ -43,7 +45,7 @@ export const Login = () => {
       //console.log("Error en el registro");
     }
 
-    setIsLoading(false); */
+    setIsLoading(false);
   };
   return (
     <main className="auth__container">
@@ -62,10 +64,8 @@ export const Login = () => {
           )}
           <Formik
             initialValues={{
-              username: "",
-              email: "",
+              patente: "",
               password: "",
-              rePassword: "",
             }}
             validationSchema={SignupSchema}
             onSubmit={(values, { resetForm }) => {

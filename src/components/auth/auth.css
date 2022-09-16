@@ -48,3 +48,7 @@
     text-decoration: none;
     color: var(--color-red);
 }
+.login__error{
+    font-size: 12px;
+    color: red;
+}

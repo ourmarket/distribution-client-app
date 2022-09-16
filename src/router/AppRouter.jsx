@@ -4,6 +4,7 @@ import { LoginPage } from "../pages/LoginPage";
 import { PedidoPage } from "../pages/PedidoPage";
 import { RegisterPage } from "../pages/RegisterPage";
 import { TodosLosPedidos } from "../pages/TodosLosPedidos";
+import { PublicRoute } from "./PublicRoute";
 
 export const AppRouter = () => {
   return (
@@ -12,8 +13,24 @@ export const AppRouter = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/all" element={<TodosLosPedidos />} />
         <Route path="/order/:id" element={<PedidoPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <LoginPage />
+            </PublicRoute>
+          }
+        />
+
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <RegisterPage />
+            </PublicRoute>
+          }
+        />
       </Routes>
     </HashRouter>
   );
