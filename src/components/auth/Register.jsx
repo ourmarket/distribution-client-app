@@ -2,11 +2,14 @@ import "./auth.css";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import api from "../../api/api";
+import { login } from "../../redux/userSlice";
 
 const SignupSchema = Yup.object().shape({
-  username: Yup.string().required("Requerido"),
-  email: Yup.string().email("Email invalido").required("Requerido"),
+  nombre: Yup.string().required("Requerido"),
+  patente: Yup.string().required("Requerido"),
   password: Yup.string().min(6, "6 caracteres minimo").required("Requerido"),
   rePassword: Yup.string()
     .min(6, "6 caracteres minimo")
@@ -15,23 +18,31 @@ const SignupSchema = Yup.object().shape({
 });
 
 export const Register = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const handleSubmit = async (values) => {
-    /*  setIsLoading(true);
+    setIsLoading(true);
 
-    const response = await registerApi(values);
+    const {nombre, patente, password } = values;
+    
+    const { data } = await api.post("/auth/repartidores", {
+      nombre,
+      patente,
+      password,
+      rol: "DELIVERY_ROLE",
+    });
 
-    //console.log(response);
+    console.log(data);
 
-    if (response?.jwt) {
+    if (data?.repartidor) {
       dispatch(
         login({
-          id: response.user.id,
-          username: response.user.username,
-          email: response.user.email,
-          jwt: response.jwt,
+          nombre: data.repartidor.nombre,
+          patente: data.repartidor.patente,
+          jwt: data.token,
         })
       );
 
@@ -40,10 +51,11 @@ export const Register = () => {
       navigate("/");
     } else {
       setError(true);
-      //console.log("Error en el registro");
+      console.log("Error en el registro");
+      setIsLoading(false);
     }
 
-    setIsLoading(false); */
+    setIsLoading(false); 
   };
 
   return (
@@ -65,8 +77,8 @@ export const Register = () => {
         )}
         <Formik
           initialValues={{
-            username: "",
-            email: "",
+            nombre: "",
+            patente: "",
             password: "",
             rePassword: "",
           }}

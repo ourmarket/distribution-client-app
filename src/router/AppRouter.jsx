@@ -46,14 +46,7 @@ export const AppRouter = () => {
           }
         />
 
-        <Route
-          path="/register"
-          element={
-            <PublicRoute>
-              <RegisterPage />
-            </PublicRoute>
-          }
-        />
+        
         <Route
           path="/user"
           element={
