@@ -109,7 +109,7 @@ export const Login = () => {
             )}
           </Formik>
           <div className="auth__link">
-            <p>No tienes cuenta?</p> <Link to="/login">Registrate</Link>
+            <p>No tienes cuenta?</p> <Link to="/register">Registrate</Link>
           </div>
         </div>
       </section>

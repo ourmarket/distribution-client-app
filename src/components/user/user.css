@@ -1,0 +1,19 @@
+.user__container{
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.user__section{
+    width: 95%;
+  
+    padding: 20px 10px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px #ddd, -3px -1px 5px #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.user__patente{
+    text-transform: uppercase;
+}
