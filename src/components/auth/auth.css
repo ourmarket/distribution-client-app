@@ -1,0 +1,50 @@
+.auth__container{
+    min-height: 100vh;
+   
+}
+.auth__form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 82vh;
+}
+.auth__form__container{
+    width: 95%;
+  
+   padding: 20px 10px;
+   border-radius: 10px;
+   box-shadow: 3px 3px 5px #ddd, -3px -1px 5px #ddd;
+   
+}
+.auth__form__container h2{
+   text-align: center;
+   margin-bottom: 10px;
+   font-size: 24px;
+   letter-spacing: 3px;
+   font-family: "Bebas Neue", cursive;
+}
+.auth__form__container input{
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  font-family: var(--font-1);
+}
+.auth__form__container button{
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: var(--color-red);
+  border: none;
+  color: #fff;
+  font-family: var(--font-2);
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+.auth__link{
+    display: flex;
+    gap: 7px;
+}
+.auth__link a{
+    text-decoration: none;
+    color: var(--color-red);
+}
