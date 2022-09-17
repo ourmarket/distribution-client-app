@@ -1,7 +1,11 @@
 import "./todos.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import ordersSlice from "../../redux/ordersSlice";
 
 export const Todos = () => {
+  const { orders } = useSelector((state) => state.order);
+
   return (
     <section className="todos__container">
       <h2>Todos los pedidos</h2>
@@ -19,50 +23,26 @@ export const Todos = () => {
           <p>Estado</p>
         </div>
       </div>
-      <div className="row">
-        <div className="col col-1">
-          <p>1</p>
-        </div>
-        <div className="col col-3">
-          <p>Calle 1233</p>
-        </div>
-        <div className="col col-3">
-          <p>Cristina</p>
-        </div>
-        <div className="col col-2">
-          <Link to="/order/1">
-            <button className="btn-estado completado">Estado</button>
-          </Link>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col col-1">
-          <p>2</p>
-        </div>
-        <div className="col col-3">
-          <p>Calle 1233</p>
-        </div>
-        <div className="col col-3">
-          <p>Juan</p>
-        </div>
-        <div className="col col-2">
-          <button className="btn-estado rachazado">Estado</button>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col col-1">
-          <p>1</p>
-        </div>
-        <div className="col col-3">
-          <p>Calle 1233</p>
-        </div>
-        <div className="col col-3">
-          <p>Carlos</p>
-        </div>
-        <div className="col col-2">
-          <button className="btn-estado pendiente">Estado</button>
-        </div>
-      </div>
+      {orders.orders.map((order) => {
+        return (
+          <div className="row">
+            <div className="col col-1">
+              <p>1</p>
+            </div>
+            <div className="col col-3">
+              <p>{order.address}</p>
+            </div>
+            <div className="col col-3">
+              <p>{order.name}</p>
+            </div>
+            <div className="col col-2">
+              <Link to="/order/1">
+                <button className="btn-estado completado">{order.state}</button>
+              </Link>
+            </div>
+          </div>
+        );
+      })}
     </section>
   );
 };
