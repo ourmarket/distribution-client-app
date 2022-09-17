@@ -22,10 +22,10 @@ body{
 .pendiente{
   background-color: var(--color-pendiente);
 }
-.completado{
+.entregado{
   background-color: var(--color-completado);
 }
-.rachazado{
+.rechazado{
   background-color: var(--color-rechazado);
 }
 .flex{

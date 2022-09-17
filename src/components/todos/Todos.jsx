@@ -37,7 +37,7 @@ export const Todos = () => {
             </div>
             <div className="col col-2">
               <Link to="/order/1">
-                <button className="btn-estado completado">{order.state}</button>
+                <button className={`btn-estado ${order.state}`}>{order.state}</button>
               </Link>
             </div>
           </div>
