@@ -1,51 +1,36 @@
 import "./auth.css";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "../../redux/userSlice";
-import api from "../../api/api";
+import { useLoginMutation } from "../../api/apiAuth";
+import { setCredentials } from "../../redux/authSlice";
 
 const SignupSchema = Yup.object().shape({
-  patente: Yup.string().required("Requerido"),
-  password: Yup.string().min(6, "6 caracteres minimo").required("Requerido"),
+  email: Yup.string().email("Formato invalido").required("Requerido"),
+  password: Yup.string().min(6, "6 caracteres mínimo").required("Requerido"),
 });
 
 export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
 
-  const handleSubmit = async (values) => {
-    setIsLoading(true);
-    const { patente, password } = values;
-    const { data } = await api.post("/auth/login_repartidor", {
-      patente,
-      password,
-    });
+  const [loginDelivery, { isLoading, isError }] = useLoginMutation();
 
-    console.log(data);
-
-    if (data?.token) {
-      dispatch(
-        login({
-          nombre: data.repartidor.nombre,
-          patente: data.repartidor.patente,
-          jwt: data.token,
-        })
-      );
-
-      setError(false);
-      //console.log("Registro exitoso");
-      navigate("/");
-    } else {
-      setError(true);
-      //console.log("Error en el registro");
+  const handleSubmit = async (values, resetForm) => {
+    try {
+      const userData = await loginDelivery({
+        email: values.email,
+        password: values.password,
+      }).unwrap();
+      if (userData) {
+        dispatch(setCredentials({ ...userData }));
+        resetForm();
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
     }
-
-    setIsLoading(false);
   };
   return (
     <main className="auth__container">
@@ -57,14 +42,14 @@ export const Login = () => {
       <section className="auth__form">
         <div className="auth__form__container">
           <h2 className="title">Ingresa</h2>
-          {error && (
+          {isError && (
             <p className="login__error">
-              Error en el login, intentelo nuevamente
+              Error en el login, inténtelo nuevamente
             </p>
           )}
           <Formik
             initialValues={{
-              patente: "",
+              email: "",
               password: "",
             }}
             validationSchema={SignupSchema}
@@ -76,13 +61,13 @@ export const Login = () => {
             {({ isSubmitting }) => (
               <Form>
                 <Field
-                  type="text"
-                  name="patente"
-                  placeholder="Ingresa la patente del vehiculo"
+                  type="email"
+                  name="email"
+                  placeholder="Ingresa tu email"
                 />
 
                 <ErrorMessage
-                  name="patente"
+                  name="email"
                   component="p"
                   className="login__error"
                 />
@@ -108,7 +93,6 @@ export const Login = () => {
               </Form>
             )}
           </Formik>
-          
         </div>
       </section>
     </main>
