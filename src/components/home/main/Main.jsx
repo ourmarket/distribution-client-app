@@ -1,37 +1,41 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   BiCalendarAlt,
   BiCalendarCheck,
   BiCalendarExclamation,
 } from "react-icons/bi";
 import { BsTruck } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import api from "../../../api/api";
+import { useGetOrdersQuery } from "../../../api/apiOrders";
 import { getDelivered, getOrders, getPending, getRefused } from "../../../redux/ordersSlice";
+import Loading from "../../loading/Loading";
 import "./main.css";
 
 export const Main = () => {
   const dispatch = useDispatch();
+  const { deliveryTruck } = useSelector((store) => store.user);
+  const { data, isLoading } = useGetOrdersQuery(deliveryTruck._id);
+  const { allOrders, pending, delivered, refused } = useSelector((store) => store.order);
   
-
+  
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await api.get("/orders");
-      const pending = data.orders.filter(order=>order.state === "pendiente")
-      const delievered = data.orders.filter(order=>order.state === "entregado")
-      const refused = data.orders.filter(order=>order.state === "rechazado")
-      console.log(refused)
-      dispatch(getOrders(data))
-      dispatch(getPending(pending))
-      dispatch(getDelivered(delievered))
-      dispatch(getRefused(refused))
-    };
-    fetchData();
-  }, []);
-
+    if (data) {
+      const pending = data.data.orders.filter(order => order.status === 'Pendiente')
+      const delivered = data.data.orders.filter(order => order.status === 'Entregado')
+      const refused = data.data.orders.filter(order => order.status === 'Rechazado')
+      dispatch(getOrders(data.data.orders));
+     
+      dispatch(getPending(pending));
+      dispatch(getDelivered(delivered));
+      dispatch(getRefused(refused)); 
+    }
+  }, [data, dispatch]);
   
-
+  if (isLoading) {
+    return <Loading />;
+  }
+  
   return (
     <main className="home__main__container">
       <Link to="/all">
@@ -39,7 +43,7 @@ export const Main = () => {
           <h3>
             {" "}
             <BiCalendarAlt /> <br /> Pedidos para hoy <br />
-            <span>30</span>{" "}
+            <span>{allOrders.length}</span>
           </h3>
         </article>
       </Link>
@@ -47,7 +51,7 @@ export const Main = () => {
         <article className="home__card__wrapper">
           <h3>
             <BiCalendarCheck /> <br />
-            Pedidos entregados <br /> <span>10</span>
+            Pedidos entregados <br /> <span>{delivered.length}</span>
           </h3>
         </article>
       </Link>
@@ -57,7 +61,7 @@ export const Main = () => {
             <BsTruck />
             <br />
             Pedidos pendientes <br />
-            <span>19</span>
+            <span>{pending.length}</span>
           </h3>
         </article>
       </Link>
@@ -67,7 +71,7 @@ export const Main = () => {
             <BiCalendarExclamation />
             <br />
             Pedidos rechazados
-            <br /> <span>1</span>
+            <br /> <span>{refused.length}</span>
           </h3>
         </article>
       </Link>

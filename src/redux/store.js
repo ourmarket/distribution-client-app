@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
 import uiReducer from "./uiSlice";
 import orderReducer from "./ordersSlice";
+import userReducer from "./userSlice";
 import { authApi } from "../api/apiAuth";
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
     authDelivery: authReducer,
     ui: uiReducer,
     order: orderReducer,
+    user: userReducer,
    [authApi.reducerPath]: authApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

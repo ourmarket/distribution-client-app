@@ -3,25 +3,25 @@ import { createSlice } from "@reduxjs/toolkit";
 const orderSlice = createSlice({
   name: "orders",
   initialState: {
-    orders: null,
-    pending: null,
-    delivered: null,
-    refused: null,
+    allOrders: [],
+    pending: [],
+    delivered: [],
+    refused: [],
 
   },
   reducers: {
     
     getOrders:(state, action) => {
-      state.orders = action.payload;
+      state.allOrders = action.payload;
     },
     getPending:(state, action) => {
-      state.orders.pending = action.payload;
+      state.pending = action.payload;
     },
     getDelivered:(state, action) => {
-      state.orders.delievered = action.payload;
+      state.delivered = action.payload;
     },
     getRefused:(state, action) => {
-      state.orders.refused = action.payload;
+      state.refused = action.payload;
     },
     
   },
