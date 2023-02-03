@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
+//import { useDispatch, useSelector } from 'react-redux';
 
 import './user.css'
 
 export const User = () => {
    /*  const { currentUser } = useSelector((state) => state.user); */
-    const dispatch = useDispatch()
+   //const dispatch = useDispatch()
     return (
     <main className='user__container'>
        {/*  <section className='user__section'>
