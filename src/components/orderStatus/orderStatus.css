@@ -10,6 +10,7 @@
 }
 .row{
     display: flex;
+    justify-content: space-between;
 }
 .col{
     flex-direction: column;
@@ -36,5 +37,20 @@
     border-radius: 5px;
     color: #fff;
     font-weight: 600;
+}
+
+.order__card__container{
+    box-shadow: 3px 3px 5px rgba(102, 102, 102, 0.704), -3px -1px 5px rgba(102, 102, 102, 0.714);
+    padding: 10px 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+.order__status-circle{
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: yellow;
+    display: inline-block;
+    border: 1px solid var(--color-black);
 }
 

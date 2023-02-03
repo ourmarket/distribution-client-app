@@ -3,24 +3,26 @@ import { BiHome } from "react-icons/bi";
 import { BiUser } from "react-icons/bi";
 import { BsTruck } from "react-icons/bs";
 import { BiCheckDouble } from "react-icons/bi";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export const Menu = () => {
   return (
     <section className="menu__container">
       <ul>
         <li>
-          <a href="#">
+          <Link to={"/"}>
             <BiHome />
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="#">
+          <Link to={"/ordenes/entregados"}>
             <BsTruck />
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="#"><BiCheckDouble /></a>
+          <Link to={"/ordenes/pendientes"}>
+            <BiCheckDouble />
+          </Link>
         </li>
         <li>
           <Link to="/user">

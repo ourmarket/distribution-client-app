@@ -25,7 +25,7 @@ export const Login = () => {
       }).unwrap();
       if (userData) {
         dispatch(setCredentials({ ...userData }));
-        resetForm();
+        
         navigate("/");
       }
     } catch (error) {

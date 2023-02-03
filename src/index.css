@@ -12,6 +12,7 @@
   --color-completado: #37b00b;
   --color-rechazado: #dd132b;
   --color-red: #db1212;
+  --color-black: #333;
 
   --font-1: 'Open Sans', sans-serif;
   --font-2: 'Bebas Neue', sans-serif;
@@ -42,6 +43,13 @@ body{
   font-size: 22px;
   letter-spacing: 2px;
 }
+a{
+  text-decoration: none;
+  color: var(--color-black);
+}
+textarea, input{
+  outline: var(--color-red);
+}
 
 /*-------------- boton con loading---------------- */
 
@@ -52,7 +60,7 @@ body{
   cursor: pointer;
   font-size: 15px;
   letter-spacing: 4px;
-  font-family: var(--font-2);
+  
   padding: 15px;
   text-transform: uppercase;
   transition: all 0.3s ease;

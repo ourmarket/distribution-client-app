@@ -38,7 +38,7 @@ export const Main = () => {
   
   return (
     <main className="home__main__container">
-      <Link to="/all">
+      <Link to="/ordenes/todos">
         <article className="home__card__wrapper">
           <h3>
             {" "}
@@ -47,7 +47,7 @@ export const Main = () => {
           </h3>
         </article>
       </Link>
-      <Link to="/all">
+      <Link to="/ordenes/entregados">
         <article className="home__card__wrapper">
           <h3>
             <BiCalendarCheck /> <br />
@@ -55,7 +55,7 @@ export const Main = () => {
           </h3>
         </article>
       </Link>
-      <Link to="/all">
+      <Link to="/ordenes/pendientes">
         <article className="home__card__wrapper">
           <h3>
             <BsTruck />
@@ -65,7 +65,7 @@ export const Main = () => {
           </h3>
         </article>
       </Link>
-      <Link to="/all">
+      <Link to="/ordenes/rechazados">
         <article className="home__card__wrapper">
           <h3>
             <BiCalendarExclamation />

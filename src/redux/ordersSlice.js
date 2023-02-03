@@ -23,6 +23,9 @@ const orderSlice = createSlice({
     getRefused:(state, action) => {
       state.refused = action.payload;
     },
+    updateOrder:(state, action) => {
+      state.refused = action.payload;
+    },
     
   },
 });

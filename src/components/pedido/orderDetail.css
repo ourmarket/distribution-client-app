@@ -12,7 +12,8 @@
 .pedido__container h3 {
   font-family: var(--font-1);
   letter-spacing: 2px;
-  margin-bottom: 20px;
+ text-align: center;
+ margin-bottom: 5px;
 }
 .pedido__container h3 span {
   background-color: var(--color-pendiente);
@@ -29,7 +30,7 @@
   background-color: var(--color-rechazado);
  
 }
-.pedido__container h3 span.completado {
+.pedido__container h3 span.entregado {
   background-color: var(--color-completado);
  
 }
