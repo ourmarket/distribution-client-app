@@ -1,5 +1,5 @@
 .todos__container{
-    min-height: 100vh;
+    min-height: calc(100vh + 150px);
     text-align: center;
     padding: 20px 10px;
 }

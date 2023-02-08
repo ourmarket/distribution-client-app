@@ -3,6 +3,7 @@
   background-color: #ccc;
   position: fixed;
   bottom: 0;
+  width: 100%;
 }
 
 .menu__container ul {
