@@ -1,7 +1,7 @@
 .menu__container {
   height: 60px;
   background-color: #ccc;
-  position: sticky;
+  position: fixed;
   bottom: 0;
 }
 
