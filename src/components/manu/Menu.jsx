@@ -15,12 +15,12 @@ export const Menu = () => {
           </Link>
         </li>
         <li>
-          <Link to={"/ordenes/entregados"}>
+          <Link to={"/ordenes/pendientes"}>
             <BsTruck />
           </Link>
         </li>
         <li>
-          <Link to={"/ordenes/pendientes"}>
+          <Link to={"/ordenes/entregados"}>
             <BiCheckDouble />
           </Link>
         </li>

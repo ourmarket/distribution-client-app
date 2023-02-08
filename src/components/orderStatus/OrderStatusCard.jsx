@@ -19,7 +19,7 @@ export const OrderStatusCard = ({order}) => {
             </div>
             <div className="row">
               <h4>Estado</h4>
-              <p><span className="order__status-circle"></span> {order.status}</p>
+              <p><span className={`order__status-circle ${order.status.toLowerCase()}`}></span> {order.status}</p>
             </div>
           </div>
         </Link>

@@ -1,60 +1,52 @@
 import "./orderStatus.css";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { OrderStatusCard } from "./OrderStatusCard";
 
-
 export const OrderStatus = () => {
-  const {status}= useParams()
-  const { allOrders, pending, delivered, refused  } = useSelector((state) => state.order);
+  const { status } = useParams();
+  const { allOrders, pending, delivered, refused } = useSelector(
+    (state) => state.order
+  );
 
   return (
     <section className="todos__container">
       <h2>Lista de pedidos</h2>
-     {
-      status === 'todos' && (
+      {status === "todos" && (
         <div>
-          {
-            allOrders.map(order => (
-              <OrderStatusCard order = {order}/>
-            ))
-          }
+          {allOrders.map((order) => (
+            <OrderStatusCard order={order} />
+          ))}
         </div>
-      ) 
-     }
-     {
-      status === 'pendientes' && (
+      )}
+      {status === "pendientes" && (
         <div>
-          {
-            pending.map(order => (
-              <OrderStatusCard order = {order}/>
-            ))
-          }
+          {pending.length > 0 ? (
+            pending.map((order) => <OrderStatusCard order={order} />)
+          ) : (
+            <p> No hay pedidos pendientes </p>
+          )}
         </div>
-      ) 
-     }
-     {
-      status === 'entregados' && (
+      )}
+      {status === "entregados" && (
         <div>
-          {
-            delivered.map(order => (
-              <OrderStatusCard order = {order}/>
-            ))
-          }
+          {delivered.length > 0 ? (
+            delivered.map((order) => <OrderStatusCard order={order} />)
+          ) : (
+            <p> No hay pedidos entregados </p>
+          )}
         </div>
-      ) 
-     }
-     {
-      status === 'rechazados' && (
+      )}
+      {status === "rechazados" && (
         <div>
-          {
-            refused.map(order => (
-              <OrderStatusCard order = {order}/>
-            ))
-          }
+          {refused.length > 0 ? (
+            refused.map((order) => <OrderStatusCard order={order} />)
+          ) : (
+            <p> No hay pedidos rechazados </p>
+          )}
         </div>
-      ) 
-     }
+      )}
+     
      
     </section>
   );
