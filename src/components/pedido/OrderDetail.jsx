@@ -184,24 +184,24 @@ export const OrderDetail = ({ order, id }) => {
           <h3>${order.total}</h3>
         </div>
 
-        {(order.payment.cash ||
-          order.payment.transfer ||
-          order.payment.debt) && (
+        {(order?.payment?.cash ||
+          order?.payment?.transfer ||
+          order?.payment?.debt) && (
           <>
             <div>
               <h3 style={{ textAlign: "center" }}>Pago</h3>
             </div>
             <div className="row flex sb">
               <h4>Efectivo</h4>
-              <h4>${order.payment.cash}</h4>
+              <h4>${order?.payment?.cash}</h4>
             </div>
             <div className="row flex sb">
               <h4>Transferencia</h4>
-              <h4>${order.payment.transfer}</h4>
+              <h4>${order?.payment?.transfer}</h4>
             </div>
             <div className="row flex sb">
               <h4>Debe</h4>
-              <h4>${order.payment.debt}</h4>
+              <h4>${order?.payment?.debt}</h4>
             </div>
           </>
         )}
