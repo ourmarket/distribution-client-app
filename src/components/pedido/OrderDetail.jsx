@@ -167,7 +167,7 @@ export const OrderDetail = ({ order, id }) => {
         {order.orderItems.map((item) => (
           <div className="row flex sb" key={item._id}>
             <h3 id="item_totalQuantity">{item.totalQuantity}</h3>
-            <p>{item.name}</p>
+            <p>{item.description}</p>
           </div>
         ))}
 
