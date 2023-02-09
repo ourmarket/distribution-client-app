@@ -193,6 +193,21 @@ export const OrderDetail = ({ order, id }) => {
             </div>
           </>
         )}
+        <div>
+          <h3 style={{ textAlign: "center" }}>Pago</h3>
+        </div>
+        <div className="row flex sb">
+          <h4 >Efectivo</h4>
+          <h4>${order.payment.cash}</h4>
+        </div>
+        <div className="row flex sb">
+          <h4 >Transferencia</h4>
+          <h4>${order.payment.transfer}</h4>
+        </div>
+        <div className="row flex sb">
+          <h4 >Debe</h4>
+          <h4>${order.payment.debt}</h4>
+        </div>
 
         <button className="btn__estado " onClick={() => setMenu(true)}>
           Cambiar estado
