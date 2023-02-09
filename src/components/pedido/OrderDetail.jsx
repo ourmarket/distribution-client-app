@@ -183,16 +183,7 @@ export const OrderDetail = ({ order, id }) => {
           <p className="bold">Total</p>
           <h3>${order.total}</h3>
         </div>
-        {order.commentary && (
-          <>
-            <div>
-              <h3 style={{ textAlign: "center" }}>Comentario</h3>
-            </div>
-            <div className="row flex sb">
-              <p>{order.commentary}</p>
-            </div>
-          </>
-        )}
+
         {(order.payment.cash ||
           order.payment.transfer ||
           order.payment.debt) && (
@@ -211,6 +202,17 @@ export const OrderDetail = ({ order, id }) => {
             <div className="row flex sb">
               <h4>Debe</h4>
               <h4>${order.payment.debt}</h4>
+            </div>
+          </>
+        )}
+
+        {order.commentary && (
+          <>
+            <div>
+              <h3 style={{ textAlign: "center" }}>Comentario</h3>
+            </div>
+            <div className="row flex sb">
+              <p>{order.commentary}</p>
             </div>
           </>
         )}
