@@ -1,27 +1,37 @@
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePutOrderMutation } from "../../api/apiOrders";
+import * as Yup from "yup";
 import "./orderDetail.css";
+
+const SignupSchema = Yup.object().shape({
+  status: Yup.string().required("Requerido"),
+});
 
 export const OrderDetail = ({ order, id }) => {
   const navigate = useNavigate();
   const [menu, setMenu] = useState(false);
-  const [commentary, setCommentary] = useState("");
-  const [estado, setEstado] = useState(order.status);
-
-  const isRadioChecked = (value) => estado === value;
 
   const [editOrder, { isLoading, isError }] = usePutOrderMutation();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (values) => {
     const data = {
-      status: estado,
-      commentary,
+      status: values.status,
+      commentary: values.commentary,
+      payment: {
+        cash: values.cash || 0,
+        debt: values.debt || 0,
+        transfer: values.transfer || 0,
+      },
     };
-    const order = await editOrder({ id, ...data }).unwrap();
-    if(order){
-     setMenu(false)
-    } 
+    console.log(data);
+    const orderData = await editOrder({ id, ...data }).unwrap();
+    console.log(orderData);
+  
+    if (order) {
+      setMenu(false);
+    }
   };
 
   return (
@@ -29,70 +39,100 @@ export const OrderDetail = ({ order, id }) => {
       {menu && (
         <div className="overlay">
           <div className="pedido__cambiar_estado">
-            <h3>
-              Estado: <span className={estado.toLowerCase()}>{estado}</span>
-            </h3>
+            <h3>Datos del pedido</h3>
             <hr />
-            <form action="">
-              <div className="row flex sb">
-                <div>
-                  <label htmlFor="">Pendiente</label>
-                  <input
-                    type="radio"
-                    value="Pendiente"
-                    name="estado"
-                    onChange={(e) => setEstado(e.target.value)}
-                    checked={isRadioChecked("Pendiente")}
+            <Formik
+              initialValues={{
+                status: order.status,
+                cash: order?.payment?.cash || undefined,
+                debt: order?.payment?.debt || undefined,
+                transfer: order?.payment?.transfer || undefined,
+                commentary: order?.commentary || undefined,
+              }}
+              validationSchema={SignupSchema}
+              onSubmit={(values, { resetForm }) => {
+                handleSubmit(values);
+              }}
+            >
+              {({ isSubmitting }) => (
+                <Form>
+                  <label htmlFor="">Estado</label>
+                  <Field as="select" name="status">
+                    <option value="" disable="true">
+                      Seleccionar estado del pedido
+                    </option>
+                    <option value="Entregado">Entregado</option>
+                    <option value="Rechazado">Rechazado</option>
+                  </Field>
+                  <ErrorMessage
+                    name="status"
+                    component="p"
+                    className="login__error"
                   />
-                </div>
-                <div>
-                  <label htmlFor="">Entregado</label>
-                  <input
-                    type="radio"
-                    value="Entregado"
-                    name="estado"
-                    onChange={(e) => setEstado(e.target.value)}
-                    checked={isRadioChecked("Entregado")}
+
+                  <label htmlFor="">Efectivo</label>
+                  <Field type="number" name="cash" placeholder="$" />
+
+                  <ErrorMessage
+                    name="cash"
+                    component="p"
+                    className="login__error"
                   />
-                </div>
-              </div>
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <label htmlFor="">Rechazado</label>
-                <input
-                  type="radio"
-                  value="Rechazado"
-                  name="estado"
-                  onChange={(e) => setEstado(e.target.value)}
-                  checked={isRadioChecked("Rechazado")}
-                />
-              </div>
 
-              <textarea
-                name="comentarios"
-                id="comentarios"
-                cols="20"
-                rows="5"
-                placeholder="Agregar algún comentario de ser necesario..."
-                onChange={(e) => setCommentary(e.target.value)}
-              ></textarea>
+                  <label htmlFor="">Transferencia</label>
+                  <Field type="number" name="transfer" placeholder="$" />
 
-              <button
-                onClick={handleSubmit}
-                className={`btn__estado btn-load  ${
-                  isLoading ? "button--loading" : ""
-                }`}
-                type="submit"
-                disabled={isLoading}
-              >
-                <span className="button__text"> Cambiar estado</span>
-              </button>
-              <button className="btn__volver" onClick={() => setMenu(false)}>
-                Cerrar
-              </button>
-              {
-                isError && <p style={{color: 'red'}}>Ha ocurrido un error, orden no actualizada</p>
-              }
-            </form>
+                  <ErrorMessage
+                    name="transfer"
+                    component="p"
+                    className="login__error"
+                  />
+                  <label htmlFor="">Debe</label>
+                  <Field type="number" name="debt" placeholder="$" />
+
+                  <ErrorMessage
+                    name="debt"
+                    component="p"
+                    className="login__error"
+                  />
+                  <label htmlFor="">Comentarios</label>
+                  <Field
+                    as="textarea"
+                    type="password"
+                    name="password"
+                    placeholder="Agregar algún comentario de ser necesario..."
+                    cols="20"
+                    rows="3"
+                  />
+                  <ErrorMessage
+                    name="password"
+                    component="p"
+                    className="login__error"
+                  />
+                  {isError && (
+                    <p style={{ color: "red" }}>
+                      Ha ocurrido un error, orden no editada
+                    </p>
+                  )}
+
+                  <button
+                    className={`btn__estado btn-load  ${
+                      isLoading ? "button--loading" : ""
+                    }`}
+                    type="submit"
+                    disabled={isLoading}
+                  >
+                    <span className="button__text">Enviar</span>
+                  </button>
+                  <button
+                    className="btn__volver"
+                    onClick={() => setMenu(false)}
+                  >
+                    Cerrar
+                  </button>
+                </Form>
+              )}
+            </Formik>
           </div>
         </div>
       )}
@@ -120,19 +160,23 @@ export const OrderDetail = ({ order, id }) => {
         <div>
           <h3 style={{ textAlign: "center" }}>Pedido</h3>
         </div>
+        <div className="row flex sb">
+          <h4>Cant.</h4>
+          <h4>Producto</h4>
+        </div>
         {order.orderItems.map((item) => (
           <div className="row flex sb" key={item._id}>
-            <p>Cant. {item.totalQuantity}</p>
+            <h3 id="item_totalQuantity">{item.totalQuantity}</h3>
             <p>{item.name}</p>
           </div>
         ))}
 
         <div className="row flex sb">
-          <p>Subtotal</p>
+          <h4>Subtotal</h4>
           <p>${order.subTotal}</p>
         </div>
         <div className="row flex sb">
-          <p>Envío</p>
+          <h4>Envío</h4>
           <p>${order.tax}</p>
         </div>
         <div className="row flex sb">
@@ -153,7 +197,7 @@ export const OrderDetail = ({ order, id }) => {
         <button className="btn__estado " onClick={() => setMenu(true)}>
           Cambiar estado
         </button>
-        <button className="btn__volver" onClick={() => navigate('/')}>
+        <button className="btn__volver" onClick={() => navigate("/")}>
           Volver
         </button>
       </article>
