@@ -98,14 +98,14 @@ export const OrderDetail = ({ order, id }) => {
                   <label htmlFor="">Comentarios</label>
                   <Field
                     as="textarea"
-                    type="password"
-                    name="password"
+                    type="commentary"
+                    name="commentary"
                     placeholder="Agregar algún comentario de ser necesario..."
                     cols="20"
                     rows="3"
                   />
                   <ErrorMessage
-                    name="password"
+                    name="commentary"
                     component="p"
                     className="login__error"
                   />
