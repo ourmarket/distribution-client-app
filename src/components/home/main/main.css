@@ -1,5 +1,5 @@
 .home__main__container {
-  min-height: calc(100vh + 150px);
+  min-height: calc(100vh + 20px);
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -9,13 +9,29 @@
 }
 .home__card__wrapper {
   border-radius: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  box-shadow: 3px 3px 5px #ddd, -3px -1px 5px #ddd;
-  padding: 15px 0;
+  box-shadow: 3px 3px 5px #ccc, -3px -1px 5px #ccc;
+  padding: 15px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
 }
+.home__main__resume{
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+ width: 90%;
+  text-align: center;
+  box-shadow: 3px 3px 5px #ccc, -3px -1px 5px #ccc;
+  padding: 15px;
+}
+.home__main__resume h3{
+ margin-bottom: 8px;
+}
+.home__main__row{
+  display: flex;
+  justify-content: space-between;
+}
+
 .home__main__container a {
   display: block;
   width: 90%;
@@ -27,28 +43,36 @@
 
   font-family: "Bebas Neue", cursive;
   letter-spacing: 2px;
-  color: rgb(89, 90, 90);
+  color:var(--color-black);
 }
-.home__card__wrapper h3 span {
+.orders {
   background-color: #158dbc;
   border-radius: 50%;
   padding: 5px;
   color: rgb(242, 243, 244);
-  font-size: 40px;
+  font-size: 30px;
+  font-weight: 800;
   display: inline-block;
   width: 60px;
+  height: 60px;
   text-shadow: 0 0 2px rgb(41, 40, 40);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .home__card__wrapper h3 svg {
   position: relative;
     font-size: 35px;
 }
-a:nth-child(2) h3 span {
+.total_orders {
+  background-color: #158dbc;
+}
+.delivered_orders {
   background-color: #37b00b;
 }
-a:nth-child(3) h3 span {
+.pending_orders {
   background-color: #ddd613;
 }
-a:nth-child(4) h3 span {
+.refused_orders {
   background-color: #dd132b;
 }

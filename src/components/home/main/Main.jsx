@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   BiCalendarAlt,
   BiCalendarCheck,
@@ -15,6 +15,7 @@ import {
   getRefused,
 } from "../../../redux/ordersSlice";
 import { getAllProducts } from "../../../redux/productsSlice";
+import { formatPrice } from "../../../utils/formatPrice";
 import Loading from "../../loading/Loading";
 import "./main.css";
 
@@ -30,6 +31,18 @@ const getListProducts = (orders) => {
   }
 
   return list;
+};
+const getListPaymentOrders = (orders) => {
+  const listOfProducts = orders.map((product) => product.payment);
+  const cash = listOfProducts.reduce((acc, cur) => acc + cur.cash, 0);
+  const transfer = listOfProducts.reduce((acc, cur) => acc + cur.transfer, 0);
+  const debt = listOfProducts.reduce((acc, cur) => acc + cur.debt, 0);
+
+  return {
+    cash,
+    transfer,
+    debt,
+  };
 };
 
 const repeatSum = (arr) => {
@@ -75,10 +88,14 @@ export const Main = () => {
   const { allOrders, pending, delivered, refused } = useSelector(
     (store) => store.order
   );
+  const [orderPayment, setOrderPayment] = useState({});
 
   useEffect(() => {
     if (data) {
       const list = getListProducts(data.data.orders);
+      const paymentOrders = getListPaymentOrders(data.data.orders);
+      console.table(paymentOrders);
+      setOrderPayment(paymentOrders);
       const totalList = repeatSum(list);
 
       const pending = data.data.orders.filter(
@@ -96,7 +113,6 @@ export const Main = () => {
       dispatch(getDelivered(delivered));
       dispatch(getRefused(refused));
       dispatch(getAllProducts(totalList));
-
     }
   }, [data, dispatch]);
 
@@ -106,41 +122,46 @@ export const Main = () => {
 
   return (
     <main className="home__main__container">
+      <div className="home__main__resume">
+        <h3>Resumen de pagos</h3>
+        <hr />
+      
+        <div className="home__main__row">
+          <h4>Efectivo</h4>
+          <h4>{orderPayment.cash ? formatPrice(orderPayment.cash) : '$0'}</h4>
+        </div>
+        <div className="home__main__row">
+          <h4>Transferencia</h4>
+          <h4>{orderPayment.transfer ? formatPrice(orderPayment.transfer) : '$0'}</h4>
+        </div>
+        <div className="home__main__row">
+          <h4>Deben</h4>
+          <h4>{orderPayment.debt ? formatPrice(orderPayment.debt) : '$0'}</h4>
+        </div>
+      </div>
+
       <Link to="/ordenes/todos">
         <article className="home__card__wrapper">
-          <h3>
-            {" "}
-            <BiCalendarAlt /> <br /> Pedidos para hoy <br />
-            <span>{allOrders.length}</span>
-          </h3>
+          <h3>Total pedidos</h3>
+          <span className="orders total_orders">{allOrders.length}</span>
         </article>
       </Link>
       <Link to="/ordenes/entregados">
         <article className="home__card__wrapper">
-          <h3>
-            <BiCalendarCheck /> <br />
-            Pedidos entregados <br /> <span>{delivered.length}</span>
-          </h3>
+          <h3>Pedidos entregados</h3>
+          <span className="orders delivered_orders">{delivered.length}</span>
         </article>
       </Link>
       <Link to="/ordenes/pendientes">
         <article className="home__card__wrapper">
-          <h3>
-            <BsTruck />
-            <br />
-            Pedidos pendientes <br />
-            <span>{pending.length}</span>
-          </h3>
+          <h3>Pedidos pendientes</h3>
+          <span className="orders pending_orders">{pending.length}</span>
         </article>
       </Link>
       <Link to="/ordenes/rechazados">
         <article className="home__card__wrapper">
-          <h3>
-            <BiCalendarExclamation />
-            <br />
-            Pedidos rechazados
-            <br /> <span>{refused.length}</span>
-          </h3>
+          <h3>Pedidos rechazados</h3>
+          <span className="orders refused_orders">{refused.length}</span>
         </article>
       </Link>
     </main>

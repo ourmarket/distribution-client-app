@@ -1,14 +1,31 @@
-import React from "react";
-import { Menu } from "../components/manu/Menu";
-import { Navbar } from "../components/navbar/Navbar";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useGetUserDeliveryTruckQuery } from "../api/apiDeliveryTruck";
+import { Layout } from "../components/layout/Layout";
+import Loading from "../components/loading/Loading";
 import { User } from "../components/user/User";
+import { getUser } from "../redux/userSlice";
 
 export const UserPage = () => {
+  const dispatch = useDispatch();
+
+  const { user: id } = useSelector((store) => store.authDelivery);
+  const { deliveryTruck } = useSelector((store) => store.user);
+
+  const { data: dataUser } = useGetUserDeliveryTruckQuery(id);
+
+  useEffect(() => {
+    if (dataUser) {
+      dispatch(getUser(dataUser.data.deliveryTruck[0]));
+    }
+  }, [dataUser, dispatch]);
+  
   return (
-    <div>
-      <Navbar />
-      <User />
-      <Menu />
-    </div>
+    <Layout>
+      {
+        deliveryTruck ?  <User /> : <Loading />
+      }
+   
+  </Layout>
   );
 };
