@@ -2,7 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import "./user.css";
 import * as Yup from "yup";
 import { usePutUserChangePasswordMutation } from "../../api/apiUser";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 
