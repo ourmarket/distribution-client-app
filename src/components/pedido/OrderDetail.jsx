@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { usePutOrderMutation } from "../../api/apiOrders";
 import * as Yup from "yup";
 import "./orderDetail.css";
+// import { useGetClientQuery, usePutClientMutation } from "../../api/apiClient";
 
 const SignupSchema = Yup.object().shape({
   status: Yup.string().required("Requerido"),
@@ -12,22 +13,35 @@ const SignupSchema = Yup.object().shape({
 export const OrderDetail = ({ order, id }) => {
   const navigate = useNavigate();
   const [menu, setMenu] = useState(false);
+  
 
   const [editOrder, { isLoading, isError }] = usePutOrderMutation();
+  // const [editClient, { isLoading: l2, isError: e2 }] = usePutClientMutation();
+  // const {data: client} = useGetClientQuery(order.client)
+ 
 
   const handleSubmit = async (values) => {
     const data = {
       status: values.status,
       commentary: values.commentary,
+      deliveryDate: order.deliveryDate ? order.deliveryDate : new Date(),
       payment: {
         cash: values.cash || 0,
         debt: values.debt || 0,
         transfer: values.transfer || 0,
       },
     };
-    console.log(data);
-    const orderData = await editOrder({ id, ...data }).unwrap();
-    console.log(orderData);
+    
+
+    await editOrder({ id, ...data }).unwrap();
+   
+   /*  if (values.debt !== 0) {
+      const id = order.client;
+      const dataClient = {
+        debt: values.debt + client.data.client.debt,
+      };
+      await editClient({ id, ...dataClient }).unwrap();
+    } */
 
     if (order) {
       setMenu(false);
@@ -167,7 +181,12 @@ export const OrderDetail = ({ order, id }) => {
         {order.orderItems.map((item) => (
           <div className="row flex sb" key={item._id}>
             <h3 id="item_totalQuantity">{item.totalQuantity}</h3>
-            <p>{item.description}. Unidad <span className="unit__price">${item.totalPrice / item.totalQuantity}</span> </p>
+            <p>
+              {item.description}. Unidad{" "}
+              <span className="unit__price">
+                ${item.totalPrice / item.totalQuantity}
+              </span>{" "}
+            </p>
           </div>
         ))}
 
@@ -184,9 +203,9 @@ export const OrderDetail = ({ order, id }) => {
           <h3>${order.total}</h3>
         </div>
 
-        {(order?.payment?.cash ||
-          order?.payment?.transfer ||
-          order?.payment?.debt) && (
+        {order.payment?.cash ||
+        order.payment?.transfer ||
+        order.payment?.debt ? (
           <>
             <div>
               <h3 style={{ textAlign: "center" }}>Pago</h3>
@@ -204,7 +223,7 @@ export const OrderDetail = ({ order, id }) => {
               <h4>${order?.payment?.debt}</h4>
             </div>
           </>
-        )}
+        ) : null}
 
         {order.commentary && (
           <>
