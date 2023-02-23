@@ -1,10 +1,4 @@
 import { useEffect, useState } from "react";
-import {
-  BiCalendarAlt,
-  BiCalendarCheck,
-  BiCalendarExclamation,
-} from "react-icons/bi";
-import { BsTruck } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useGetOrdersQuery } from "../../../api/apiOrders";
@@ -125,18 +119,20 @@ export const Main = () => {
       <div className="home__main__resume">
         <h3>Resumen de pagos</h3>
         <hr />
-      
+
         <div className="home__main__row">
           <h4>Efectivo</h4>
-          <h4>{orderPayment.cash ? formatPrice(orderPayment.cash) : '$0'}</h4>
+          <h4>{orderPayment.cash ? formatPrice(orderPayment.cash) : "$0"}</h4>
         </div>
         <div className="home__main__row">
           <h4>Transferencia</h4>
-          <h4>{orderPayment.transfer ? formatPrice(orderPayment.transfer) : '$0'}</h4>
+          <h4>
+            {orderPayment.transfer ? formatPrice(orderPayment.transfer) : "$0"}
+          </h4>
         </div>
         <div className="home__main__row">
           <h4>Deben</h4>
-          <h4>{orderPayment.debt ? formatPrice(orderPayment.debt) : '$0'}</h4>
+          <h4>{orderPayment.debt ? formatPrice(orderPayment.debt) : "$0"}</h4>
         </div>
       </div>
 
