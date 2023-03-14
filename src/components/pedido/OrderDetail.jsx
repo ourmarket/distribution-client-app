@@ -13,6 +13,9 @@ const SignupSchema = Yup.object().shape({
 export const OrderDetail = ({ order, id }) => {
   const navigate = useNavigate();
   const [menu, setMenu] = useState(false);
+  const [cash, setCash] = useState(order?.payment?.cash || 0);
+  const [transfer, setTransfer] = useState(order?.payment?.transfer || 0);
+  const [debt, setDebt] = useState(order?.payment?.debt || 0);
 
   const [editOrder, { isLoading: l1, isError: e1 }] = usePutOrderMutation();
   const [editProductStock, { isLoading: l2, isError: e2 }] =
@@ -56,6 +59,19 @@ export const OrderDetail = ({ order, id }) => {
     }
   };
 
+  const handlerCash = () => {
+    const rest = order.subTotal - transfer - debt;
+    setCash(rest);
+  };
+  const handlerTransfer = () => {
+    const rest = order.subTotal - cash - debt;
+    setTransfer(rest);
+  };
+  const handlerDebt = () => {
+    const rest = order.subTotal - transfer - cash;
+    setDebt(rest);
+  };
+
   return (
     <section className="pedido__container">
       {menu && (
@@ -66,9 +82,9 @@ export const OrderDetail = ({ order, id }) => {
             <Formik
               initialValues={{
                 status: order.status,
-                cash: order?.payment?.cash || 0,
-                debt: order?.payment?.debt || 0,
-                transfer: order?.payment?.transfer || 0,
+                cash: cash,
+                debt: debt,
+                transfer: transfer,
                 commentary: order?.commentary || undefined,
               }}
               validationSchema={SignupSchema}
@@ -93,7 +109,7 @@ export const OrderDetail = ({ order, id }) => {
                   />
 
                   <label htmlFor="">Efectivo</label>
-                  <Field type="number" name="cash" placeholder="$" />
+                  <Field type="number" name="cash" placeholder="$" value={cash} onChange={(e)=> setCash(e.target.value)}/>
 
                   <ErrorMessage
                     name="cash"
@@ -102,7 +118,7 @@ export const OrderDetail = ({ order, id }) => {
                   />
 
                   <label htmlFor="">Transferencia</label>
-                  <Field type="number" name="transfer" placeholder="$" />
+                  <Field type="number" name="transfer" placeholder="$" value={transfer} onChange={(e)=> setTransfer(e.target.value)}/>
 
                   <ErrorMessage
                     name="transfer"
@@ -110,7 +126,7 @@ export const OrderDetail = ({ order, id }) => {
                     className="login__error"
                   />
                   <label htmlFor="">Debe</label>
-                  <Field type="number" name="debt" placeholder="$" />
+                  <Field type="number" name="debt" placeholder="$" value={debt} onChange={(e)=> setDebt(e.target.value)}/>
 
                   <ErrorMessage
                     name="debt"
@@ -136,6 +152,11 @@ export const OrderDetail = ({ order, id }) => {
                       Ha ocurrido un error, orden no editada
                     </p>
                   )}
+                  <div className="autocomplete-btn__container">
+                      <div onClick={handlerCash}>Efectivo</div>
+                      <div onClick={handlerTransfer}>Transf.</div>
+                      <div onClick={handlerDebt} id="autocomplete-btn-debt">Debe</div>
+                  </div>
 
                   <button
                     className={`btn__estado btn-load  ${
