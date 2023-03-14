@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { usePutOrderMutation } from "../../api/apiOrders";
 import * as Yup from "yup";
 import "./orderDetail.css";
-// import { useGetClientQuery, usePutClientMutation } from "../../api/apiClient";
+import { usePutProductStockMutation } from "../../api/apiProduct";
 
 const SignupSchema = Yup.object().shape({
   status: Yup.string().required("Requerido"),
@@ -13,35 +13,43 @@ const SignupSchema = Yup.object().shape({
 export const OrderDetail = ({ order, id }) => {
   const navigate = useNavigate();
   const [menu, setMenu] = useState(false);
-  
 
-  const [editOrder, { isLoading, isError }] = usePutOrderMutation();
-  // const [editClient, { isLoading: l2, isError: e2 }] = usePutClientMutation();
-  // const {data: client} = useGetClientQuery(order.client)
- 
+  const [editOrder, { isLoading: l1, isError: e1 }] = usePutOrderMutation();
+  const [editProductStock, { isLoading: l2, isError: e2 }] =
+    usePutProductStockMutation();
+
+  const productsToEdit = order.orderItems.map((product) => ({
+    productId: product.productId,
+    stockId: product.stockId,
+    totalQuantity: product.totalQuantity,
+  }));
 
   const handleSubmit = async (values) => {
+    console.log(values.cash + values.transfer, order.total);
     const data = {
       status: values.status,
       commentary: values.commentary,
       deliveryDate: order.deliveryDate ? order.deliveryDate : new Date(),
+      paid: values.cash + values.transfer === order.total ? true : false,
       payment: {
         cash: values.cash || 0,
         debt: values.debt || 0,
         transfer: values.transfer || 0,
       },
     };
-    
 
     await editOrder({ id, ...data }).unwrap();
-   
-   /*  if (values.debt !== 0) {
-      const id = order.client;
-      const dataClient = {
-        debt: values.debt + client.data.client.debt,
-      };
-      await editClient({ id, ...dataClient }).unwrap();
-    } */
+
+    if (values.status === "Entregado" && !order.deliveryDate) {
+      productsToEdit.map(async (product) => {
+        const updateData = {
+          stockId: product.stockId,
+          totalQuantity: product.totalQuantity,
+        };
+        const id = product.productId;
+        await editProductStock({ id, ...updateData }).unwrap();
+      });
+    }
 
     if (order) {
       setMenu(false);
@@ -58,9 +66,9 @@ export const OrderDetail = ({ order, id }) => {
             <Formik
               initialValues={{
                 status: order.status,
-                cash: order?.payment?.cash || undefined,
-                debt: order?.payment?.debt || undefined,
-                transfer: order?.payment?.transfer || undefined,
+                cash: order?.payment?.cash || 0,
+                debt: order?.payment?.debt || 0,
+                transfer: order?.payment?.transfer || 0,
                 commentary: order?.commentary || undefined,
               }}
               validationSchema={SignupSchema}
@@ -123,7 +131,7 @@ export const OrderDetail = ({ order, id }) => {
                     component="p"
                     className="login__error"
                   />
-                  {isError && (
+                  {(e1 || e2) && (
                     <p style={{ color: "red" }}>
                       Ha ocurrido un error, orden no editada
                     </p>
@@ -131,10 +139,10 @@ export const OrderDetail = ({ order, id }) => {
 
                   <button
                     className={`btn__estado btn-load  ${
-                      isLoading ? "button--loading" : ""
+                      l1 || l2 ? "button--loading" : ""
                     }`}
                     type="submit"
-                    disabled={isLoading}
+                    disabled={l1 || l2}
                   >
                     <span className="button__text">Enviar</span>
                   </button>
