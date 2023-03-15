@@ -28,16 +28,15 @@ export const OrderDetail = ({ order, id }) => {
   }));
 
   const handleSubmit = async (values) => {
-    console.log(values.cash + values.transfer, order.total);
     const data = {
       status: values.status,
       commentary: values.commentary,
       deliveryDate: order.deliveryDate ? order.deliveryDate : new Date(),
-      paid: values.cash + values.transfer === order.total ? true : false,
+      paid: cash + transfer === order.total ? true : false,
       payment: {
-        cash: values.cash || 0,
-        debt: values.debt || 0,
-        transfer: values.transfer || 0,
+        cash: cash || 0,
+        debt: transfer || 0,
+        transfer: debt || 0,
       },
     };
 
@@ -60,15 +59,15 @@ export const OrderDetail = ({ order, id }) => {
   };
 
   const handlerCash = () => {
-    const rest = order.subTotal - transfer - debt;
+    const rest = order.total - transfer - debt;
     setCash(rest);
   };
   const handlerTransfer = () => {
-    const rest = order.subTotal - cash - debt;
+    const rest = order.total - cash - debt;
     setTransfer(rest);
   };
   const handlerDebt = () => {
-    const rest = order.subTotal - transfer - cash;
+    const rest = order.total - transfer - cash;
     setDebt(rest);
   };
 
@@ -109,7 +108,13 @@ export const OrderDetail = ({ order, id }) => {
                   />
 
                   <label htmlFor="">Efectivo</label>
-                  <Field type="number" name="cash" placeholder="$" value={cash} onChange={(e)=> setCash(e.target.value)}/>
+                  <Field
+                    type="number"
+                    name="cash"
+                    placeholder="$"
+                    value={cash}
+                    onChange={(e) => setCash(e.target.value)}
+                  />
 
                   <ErrorMessage
                     name="cash"
@@ -118,7 +123,13 @@ export const OrderDetail = ({ order, id }) => {
                   />
 
                   <label htmlFor="">Transferencia</label>
-                  <Field type="number" name="transfer" placeholder="$" value={transfer} onChange={(e)=> setTransfer(e.target.value)}/>
+                  <Field
+                    type="number"
+                    name="transfer"
+                    placeholder="$"
+                    value={transfer}
+                    onChange={(e) => setTransfer(e.target.value)}
+                  />
 
                   <ErrorMessage
                     name="transfer"
@@ -126,7 +137,13 @@ export const OrderDetail = ({ order, id }) => {
                     className="login__error"
                   />
                   <label htmlFor="">Debe</label>
-                  <Field type="number" name="debt" placeholder="$" value={debt} onChange={(e)=> setDebt(e.target.value)}/>
+                  <Field
+                    type="number"
+                    name="debt"
+                    placeholder="$"
+                    value={debt}
+                    onChange={(e) => setDebt(e.target.value)}
+                  />
 
                   <ErrorMessage
                     name="debt"
@@ -153,9 +170,11 @@ export const OrderDetail = ({ order, id }) => {
                     </p>
                   )}
                   <div className="autocomplete-btn__container">
-                      <div onClick={handlerCash}>Efectivo</div>
-                      <div onClick={handlerTransfer}>Transf.</div>
-                      <div onClick={handlerDebt} id="autocomplete-btn-debt">Debe</div>
+                    <div onClick={handlerCash}>Efectivo</div>
+                    <div onClick={handlerTransfer}>Transf.</div>
+                    <div onClick={handlerDebt} id="autocomplete-btn-debt">
+                      Debe
+                    </div>
                   </div>
 
                   <button
