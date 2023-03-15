@@ -35,8 +35,8 @@ export const OrderDetail = ({ order, id }) => {
       paid: cash + transfer === order.total ? true : false,
       payment: {
         cash: cash || 0,
-        debt: transfer || 0,
-        transfer: debt || 0,
+        debt: debt || 0,
+        transfer: transfer || 0,
       },
     };
 
