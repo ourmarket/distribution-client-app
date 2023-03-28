@@ -42,7 +42,7 @@ export const OrderDetail = ({ order, id }) => {
 
     await editOrder({ id, ...data }).unwrap();
 
-    if (values.status === "Entregado" && !order.deliveryDate) {
+   /*  if (values.status === "Entregado" && !order.deliveryDate) {
       productsToEdit.map(async (product) => {
         const updateData = {
           stockId: product.stockId,
@@ -51,7 +51,7 @@ export const OrderDetail = ({ order, id }) => {
         const id = product.productId;
         await editProductStock({ id, ...updateData }).unwrap();
       });
-    }
+    } */
 
     if (order) {
       setMenu(false);
