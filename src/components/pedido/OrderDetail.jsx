@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { usePutOrderMutation } from "../../api/apiOrders";
 import * as Yup from "yup";
 import "./orderDetail.css";
-import { usePutProductStockMutation } from "../../api/apiProduct";
+// import { usePutProductStockMutation } from "../../api/apiProduct";
 
 const SignupSchema = Yup.object().shape({
   status: Yup.string().required("Requerido"),
@@ -18,14 +18,14 @@ export const OrderDetail = ({ order, id }) => {
   const [debt, setDebt] = useState(order?.payment?.debt || 0);
 
   const [editOrder, { isLoading: l1, isError: e1 }] = usePutOrderMutation();
-  const [editProductStock, { isLoading: l2, isError: e2 }] =
-    usePutProductStockMutation();
+  /* const [editProductStock, { isLoading: l2, isError: e2 }] =
+    usePutProductStockMutation(); */
 
-  const productsToEdit = order.orderItems.map((product) => ({
+  /* const productsToEdit = order.orderItems.map((product) => ({
     productId: product.productId,
     stockId: product.stockId,
     totalQuantity: product.totalQuantity,
-  }));
+  })); */
 
   const handleSubmit = async (values) => {
     const data = {
@@ -42,7 +42,7 @@ export const OrderDetail = ({ order, id }) => {
 
     await editOrder({ id, ...data }).unwrap();
 
-   /*  if (values.status === "Entregado" && !order.deliveryDate) {
+    /*  if (values.status === "Entregado" && !order.deliveryDate) {
       productsToEdit.map(async (product) => {
         const updateData = {
           stockId: product.stockId,
@@ -164,7 +164,7 @@ export const OrderDetail = ({ order, id }) => {
                     component="p"
                     className="login__error"
                   />
-                  {(e1 || e2) && (
+                  {(e1 ) && (
                     <p style={{ color: "red" }}>
                       Ha ocurrido un error, orden no editada
                     </p>
@@ -179,10 +179,10 @@ export const OrderDetail = ({ order, id }) => {
 
                   <button
                     className={`btn__estado btn-load  ${
-                      l1 || l2 ? "button--loading" : ""
+                      l1 ? "button--loading" : ""
                     }`}
                     type="submit"
-                    disabled={l1 || l2}
+                    disabled={l1}
                   >
                     <span className="button__text">Enviar</span>
                   </button>
