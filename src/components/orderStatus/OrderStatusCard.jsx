@@ -1,5 +1,6 @@
 import './orderStatus.css'
 import { Link } from 'react-router-dom'
+import { dateToLocalDate } from '../../utils/dateFormat'
 
 export const OrderStatusCard = ({order}) => {
   return (
@@ -16,6 +17,10 @@ export const OrderStatusCard = ({order}) => {
             <div className="row">
               <h4>Dirección</h4>
               <p>{order.shippingAddress.address}</p>
+            </div>
+            <div className="row">
+              <h4>Creado</h4>
+              <p>{dateToLocalDate(order.createdAt)}hs</p>
             </div>
             <div className="row">
               <h4>Estado</h4>

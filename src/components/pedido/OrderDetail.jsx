@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { usePutOrderMutation } from "../../api/apiOrders";
 import * as Yup from "yup";
 import "./orderDetail.css";
+import { dateToLocalDate } from "../../utils/dateFormat";
 // import { usePutProductStockMutation } from "../../api/apiProduct";
 
 const SignupSchema = Yup.object().shape({
@@ -164,7 +165,7 @@ export const OrderDetail = ({ order, id }) => {
                     component="p"
                     className="login__error"
                   />
-                  {(e1 ) && (
+                  {e1 && (
                     <p style={{ color: "red" }}>
                       Ha ocurrido un error, orden no editada
                     </p>
@@ -218,6 +219,10 @@ export const OrderDetail = ({ order, id }) => {
           <p>
             {order.shippingAddress.name + " " + order.shippingAddress.lastName}
           </p>
+        </div>
+        <div className="row flex sb">
+          <p>Creado</p>
+          <p>{dateToLocalDate(order.createdAt)}hs</p>
         </div>
         <div>
           <h3 style={{ textAlign: "center" }}>Pedido</h3>
