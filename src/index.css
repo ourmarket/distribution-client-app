@@ -19,6 +19,8 @@
 }
 body{
   font-family: var(--font-1);
+  max-width: 600px;
+  border-right: 1px solid #ddd;
  
   
 }

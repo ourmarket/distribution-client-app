@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { usePutOrderMutation } from "../../api/apiOrders";
 import * as Yup from "yup";
 import "./orderDetail.css";
-import { dateToLocalDate } from "../../utils/dateFormat";
+import { dateToLocalDate, formatDateMonth } from "../../utils/dateFormat";
+import { PdfViewOrder } from "./PdfViewOrder";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 // import { usePutProductStockMutation } from "../../api/apiProduct";
 
 const SignupSchema = Yup.object().shape({
@@ -19,14 +21,6 @@ export const OrderDetail = ({ order, id }) => {
   const [debt, setDebt] = useState(order?.payment?.debt || 0);
 
   const [editOrder, { isLoading: l1, isError: e1 }] = usePutOrderMutation();
-  /* const [editProductStock, { isLoading: l2, isError: e2 }] =
-    usePutProductStockMutation(); */
-
-  /* const productsToEdit = order.orderItems.map((product) => ({
-    productId: product.productId,
-    stockId: product.stockId,
-    totalQuantity: product.totalQuantity,
-  })); */
 
   const handleSubmit = async (values) => {
     const data = {
@@ -42,17 +36,6 @@ export const OrderDetail = ({ order, id }) => {
     };
 
     await editOrder({ id, ...data }).unwrap();
-
-    /*  if (values.status === "Entregado" && !order.deliveryDate) {
-      productsToEdit.map(async (product) => {
-        const updateData = {
-          stockId: product.stockId,
-          totalQuantity: product.totalQuantity,
-        };
-        const id = product.productId;
-        await editProductStock({ id, ...updateData }).unwrap();
-      });
-    } */
 
     if (order) {
       setMenu(false);
@@ -292,6 +275,13 @@ export const OrderDetail = ({ order, id }) => {
         <button className="btn__estado " onClick={() => setMenu(true)}>
           Cambiar estado
         </button>
+        <PDFDownloadLink
+          document={<PdfViewOrder order={order} />}
+          fileName={`${order.shippingAddress.name}-${order.shippingAddress.lastName}-${formatDateMonth(order.createdAt)}.pdf`}
+        >
+          <button className="btn__volver">Descargar Factura</button>
+        </PDFDownloadLink>
+
         <button className="btn__volver" onClick={() => navigate("/")}>
           Volver
         </button>
