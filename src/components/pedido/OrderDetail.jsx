@@ -57,7 +57,7 @@ export const OrderDetail = ({ order, id }) => {
   };
 
   return (
-    <section className="pedido__container">
+    <section className="pedido__container" style={{marginBottom: "50px"}}>
       {menu && (
         <div className="overlay">
           <div className="pedido__cambiar_estado">
