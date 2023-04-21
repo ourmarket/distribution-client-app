@@ -7,6 +7,7 @@ import "./orderDetail.css";
 import { dateToLocalDate, formatDateMonth } from "../../utils/dateFormat";
 import { PdfViewOrder } from "./PdfViewOrder";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import { BsWhatsapp } from 'react-icons/bs';
 // import { usePutProductStockMutation } from "../../api/apiProduct";
 
 const SignupSchema = Yup.object().shape({
@@ -198,6 +199,17 @@ export const OrderDetail = ({ order, id }) => {
           <p>{order.shippingAddress.address}</p>
         </div>
         <div className="row flex sb">
+          <p>Teléfono</p>
+          <a
+            href={`https://api.whatsapp.com/send/?phone=${order.shippingAddress.phone}&text&type=phone_number&app_absent=0`}
+            target="_blank"
+            rel="noreferrer"
+            style={{ textDecoration: "underline" }}
+          >
+            <BsWhatsapp/> {order.shippingAddress.phone}
+          </a>
+        </div>
+        <div className="row flex sb">
           <p>Nombre</p>
           <p>
             {order.shippingAddress.name + " " + order.shippingAddress.lastName}
@@ -277,7 +289,9 @@ export const OrderDetail = ({ order, id }) => {
         </button>
         <PDFDownloadLink
           document={<PdfViewOrder order={order} />}
-          fileName={`${order.shippingAddress.name}-${order.shippingAddress.lastName}-${formatDateMonth(order.createdAt)}.pdf`}
+          fileName={`${order.shippingAddress.name}-${
+            order.shippingAddress.lastName
+          }-${formatDateMonth(order.createdAt)}.pdf`}
         >
           <button className="btn__volver">Descargar Factura</button>
         </PDFDownloadLink>
