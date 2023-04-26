@@ -2,8 +2,12 @@ import { Document, Page, Text, View } from "@react-pdf/renderer";
 import { formatPrice } from "../../utils/formatPrice";
 import { dateToLocalDate } from "../../utils/dateFormat";
 
-export const PdfViewOrder = ({ order }) => {
-  console.log(order);
+export const PdfViewOrder = ({ order, unpaidOrders }) => {
+  const totalDebt = unpaidOrders.reduce(
+    (acc, curr) => acc + curr.payment.debt,
+    0
+  );
+
   return (
     <Document>
       <Page
@@ -141,7 +145,6 @@ export const PdfViewOrder = ({ order }) => {
                 flex: 2.9,
                 fontWeight: "bold",
                 textAlign: "left",
-              
               }}
             >
               Producto
@@ -162,7 +165,6 @@ export const PdfViewOrder = ({ order }) => {
                 flex: 1,
                 fontWeight: "bold",
                 textAlign: "right",
-               
               }}
             >
               Total
@@ -178,15 +180,15 @@ export const PdfViewOrder = ({ order }) => {
                 flexDirection: "row",
               }}
             >
-              <Text style={{ fontSize: "11px", flex: 0.3, textAlign: "center",  }}>
+              <Text
+                style={{ fontSize: "11px", flex: 0.3, textAlign: "center" }}
+              >
                 {product.totalQuantity}
               </Text>
-              <Text
-                style={{ fontSize: "11px", flex: 2.9, textAlign: "left" }}
-              >
+              <Text style={{ fontSize: "11px", flex: 2.9, textAlign: "left" }}>
                 {product.description}
               </Text>
-              <Text style={{ fontSize: "11px", flex: 1, textAlign: "center",  }}>
+              <Text style={{ fontSize: "11px", flex: 1, textAlign: "center" }}>
                 {formatPrice(product.unitPrice)}
               </Text>
               <Text style={{ fontSize: "11px", flex: 1, textAlign: "right" }}>
@@ -250,6 +252,107 @@ export const PdfViewOrder = ({ order }) => {
               </Text>
             </View>
           </View>
+          {unpaidOrders.length > 0 ? (
+            <>
+              <View
+                style={{
+                  margin: "30px",
+                  backgroundColor: "#ccc",
+                  height: "1px",
+                  width: "100%",
+                }}
+              ></View>
+              <Text style={{ fontSize: "15px", fontWeight: "bold" }}>
+                Ordenes adeudadas
+              </Text>
+              <View
+                style={{
+                  display: "flex",
+                  width: "100%",
+                  borderBottom: "1px solid #ccc",
+                  padding: "10px 0",
+                  marginTop: "30px",
+                  flexDirection: "row",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: "11px",
+                    flex: 1,
+                    fontWeight: "bold",
+                    textAlign: "left",
+                  }}
+                >
+                  Fecha de entrega
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: "11px",
+                    flex: 1,
+                    fontWeight: "bold",
+                    textAlign: "right",
+                  }}
+                >
+                  Valor adeudado
+                </Text>
+              </View>
+              {unpaidOrders.map((order) => (
+                <View
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    borderBottom: "1px solid #ccc",
+                    padding: "10px 0",
+                    flexDirection: "row",
+                  }}
+                >
+                  <Text
+                    style={{ fontSize: "11px", flex: 1, textAlign: "left" }}
+                  >
+                    {dateToLocalDate(order.deliveryDate)}hs
+                  </Text>
+
+                  <Text
+                    style={{ fontSize: "11px", flex: 1, textAlign: "right" }}
+                  >
+                    {formatPrice(order.payment.debt)}
+                  </Text>
+                </View>
+              ))}
+              <View style={{ paddingLeft: "50%", width: "100%" }}>
+                <View
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    flexDirection: "row",
+                    padding: "5px 0",
+                    justifyContent: "space-between",
+                    marginTop: "8px",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 800,
+                      marginTop: "4px",
+                    }}
+                  >
+                    Total adeudado
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 800,
+                      marginTop: "4px",
+                    }}
+                  >
+                    {formatPrice(totalDebt)}
+                  </Text>
+                </View>
+              </View>
+            </>
+          ) : null}
         </View>
       </Page>
     </Document>
