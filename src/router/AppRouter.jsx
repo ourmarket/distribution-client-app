@@ -7,6 +7,7 @@ import { OrderStatusPage } from "../pages/OrderStatusPage";
 import { UserPage } from "../pages/UserPage";
 import PersistLogin from "./PersitRouter";
 import RequireAuth from "./RequiereAuth";
+import { OrderDetailUnpaidPage } from "../pages/OrderDetailUnpaidPage";
 
 export const AppRouter = () => {
   return (
@@ -19,6 +20,7 @@ export const AppRouter = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/ordenes/:status" element={<OrderStatusPage />} />
             <Route path="/order/:id" element={<OrderDetailPage />} />
+            <Route path="/orderUnpaid/:id" element={<OrderDetailUnpaidPage />} />
             <Route path="/productos" element={<ListProductsPage />} />
 
             <Route path="/user" element={<UserPage />} />

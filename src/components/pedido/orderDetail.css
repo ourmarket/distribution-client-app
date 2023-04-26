@@ -39,6 +39,7 @@
   padding: 15px 8px;
   border-radius: 15px;
   box-shadow: 3px 3px 5px #ddd, -3px -1px 5px #ddd;
+  margin-bottom: 20px;
 }
 .pedido__card > div {
   border-top: 1px solid #ccc;
@@ -93,6 +94,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 600px;
 }
 .pedido__cambiar_estado {
   width: 90%;

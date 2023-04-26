@@ -21,6 +21,13 @@ export const orderApi = apiSlice.injectEndpoints({
       extraOptions: { maxRetries: 3 },
       providesTags: ["orders"],
     }),
+    
+    getClientOrderDebt: builder.query({
+      query: (id) => `/orders/clientDebt/${id}`,
+      // keepUnusedDataFor: 3,
+      extraOptions: { maxRetries: 3 },
+      providesTags: ["orders"],
+    }),
 
     postOrder: builder.mutation({
       query: (newOrders) => ({
@@ -56,6 +63,7 @@ export const orderApi = apiSlice.injectEndpoints({
 export const {
   useGetOrdersQuery,
   useGetOrderQuery,
+  useGetClientOrderDebtQuery,
 
   usePostOrderMutation,
   usePutOrderMutation,
