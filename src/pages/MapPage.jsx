@@ -6,7 +6,7 @@ import Loading from "../components/loading/Loading";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
-const socket = io("http://192.168.100.3:3040/orders/delivery");
+const socket = io(`${process.env.REACT_APP_MAP_API_KEY}/orders/delivery`);
 
 function error(error) {
   alert(`ERROR(${error.code}): ${error.message}`);
