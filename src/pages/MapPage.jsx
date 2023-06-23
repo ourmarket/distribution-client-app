@@ -8,6 +8,16 @@ import { io } from "socket.io-client";
 
 const socket = io("http://192.168.100.3:3040/orders/delivery");
 
+function error(error) {
+  alert(`ERROR(${error.code}): ${error.message}`);
+}
+
+const options = {
+  enableHighAccuracy: true,
+  maximumAge: 30000,
+  timeout: 27000,
+};
+
 export const MapPage = () => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAP_API_KEY,
@@ -20,29 +30,18 @@ export const MapPage = () => {
     lng: -58.743382510475065,
   });
 
-  function success(position) {
-    setCoords({
-      lat: position?.coords?.latitude || -34.570428718491605,
-      lng: position?.coords?.longitude || -58.743382510475065,
-    });
-    alert(position.coords.latitude, position.coords.longitude);
-  }
-
-  function error(error) {
-    alert(`ERROR(${error.code}): ${error.message}`);
-  }
-
-  const options = {
-    enableHighAccuracy: true,
-    maximumAge: 30000,
-    timeout: 27000,
-  };
-
   useEffect(() => {
     socket.connect();
     socket.on("connect", () => {
       console.log("------------ SOCKET IO CONNECTION --------------");
     });
+
+    function success(position) {
+      setCoords({
+        lat: position?.coords?.latitude || -34.570428718491605,
+        lng: position?.coords?.longitude || -58.743382510475065,
+      });
+    }
 
     navigator.geolocation.watchPosition(success, error, options);
   }, []);
