@@ -15,15 +15,12 @@ const optionZones = {
   zIndex: 1,
 };
 
-export const Map = ({ coords }) => {
+export const Map = ({ data }) => {
   const local = useMemo(
     () => ({ lat: -34.570428718491605, lng: -58.743382510475065 }),
     []
   );
-  const center = useMemo(
-    () => ({ lat: coords.lat, lng: coords.lng }),
-    [coords]
-  );
+  const center = useMemo(() => ({ lat: data.lat, lng: data.lng }), [data]);
   const options = useMemo(
     () => ({
       clickableIcons: false,

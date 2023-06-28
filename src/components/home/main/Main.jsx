@@ -54,8 +54,6 @@ const repeatSum = (arr) => {
         (ele) => ele.productId === product.productId
       );
 
-      //console.log(countriesToCount);
-
       const country =
         countriesToCount.length > 1
           ? {
@@ -71,7 +69,6 @@ const repeatSum = (arr) => {
     }
   });
 
-  console.log(arrProductsNonDupli);
   return arrProductsNonDupli;
 };
 
@@ -88,7 +85,7 @@ export const Main = () => {
     if (data) {
       const list = getListProducts(data.data.orders);
       const paymentOrders = getListPaymentOrders(data.data.orders);
-      console.table(paymentOrders);
+
       setOrderPayment(paymentOrders);
       const totalList = repeatSum(list);
 
