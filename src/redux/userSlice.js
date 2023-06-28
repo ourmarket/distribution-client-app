@@ -8,13 +8,19 @@ const userSlice = createSlice({
   reducers: {
     getUser: (state, action) => {
       state.deliveryTruck = action.payload;
+      localStorage.setItem("truckId", action.payload.truckId);
+      localStorage.setItem(
+        "deliveryName",
+        `${action.payload.user.name} ${action.payload.user.lastName}`
+      );
     },
     clearUser: (state, action) => {
       state.deliveryTruck = null;
+      localStorage.removeItem("truckId");
+      localStorage.removeItem("deliveryName");
     },
   },
 });
 
-export const { getUser, clearUser} =
-  userSlice.actions;
+export const { getUser, clearUser } = userSlice.actions;
 export default userSlice.reducer;

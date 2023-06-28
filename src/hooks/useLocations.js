@@ -20,7 +20,8 @@ export const useLocations = () => {
   useEffect(() => {
     function success(position) {
       setData({
-        ...data,
+        truckId: deliveryTruck?.truckId,
+        deliveryName: `${deliveryTruck?.user.name}  ${deliveryTruck?.user.lastName}`,
         lat: position?.coords?.latitude || -34.570428718491605,
         lng: position?.coords?.longitude || -58.743382510475065,
         update: new Date(),
@@ -37,7 +38,7 @@ export const useLocations = () => {
     };
 
     navigator.geolocation.watchPosition(success, error, options);
-  }, []);
+  }, [deliveryTruck]);
 
   useEffect(() => {
     socket.emit("position", data);
