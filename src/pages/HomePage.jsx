@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetUserDeliveryTruckQuery } from "../api/apiDeliveryTruck";
 import { Main } from "../components/home/main/Main";
-import { Layout } from "../components/layout/Layout";
 import Loading from "../components/loading/Loading";
 import { setUser } from "../redux/userSlice";
 

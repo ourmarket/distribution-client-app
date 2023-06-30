@@ -17,7 +17,7 @@ export const Login = () => {
 
   const [loginDelivery, { isLoading, isError }] = useLoginMutation();
 
-  const handleSubmit = async (values, resetForm) => {
+  const handleSubmit = async (values) => {
     try {
       const userData = await loginDelivery({
         email: values.email,

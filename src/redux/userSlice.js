@@ -10,10 +10,10 @@ const userSlice = createSlice({
       state.deliveryTruck = action.payload;
       localStorage.setItem("deliveryData", JSON.stringify(action.payload));
     },
-    getUser: (state, action) => {
+    getUser: (state) => {
       state.deliveryTruck = JSON.parse(localStorage.getItem("deliveryData"));
     },
-    clearUser: (state, action) => {
+    clearUser: (state) => {
       state.deliveryTruck = null;
       localStorage.removeItem("deliveryData");
     },
