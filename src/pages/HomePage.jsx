@@ -4,7 +4,7 @@ import { useGetUserDeliveryTruckQuery } from "../api/apiDeliveryTruck";
 import { Main } from "../components/home/main/Main";
 import { Layout } from "../components/layout/Layout";
 import Loading from "../components/loading/Loading";
-import { getUser } from "../redux/userSlice";
+import { setUser } from "../redux/userSlice";
 
 export const HomePage = () => {
   const dispatch = useDispatch();
@@ -16,9 +16,9 @@ export const HomePage = () => {
 
   useEffect(() => {
     if (dataUser) {
-      dispatch(getUser(dataUser.data.deliveryTruck[0]));
+      dispatch(setUser(dataUser.data.deliveryTruck[0]));
     }
   }, [dataUser, dispatch]);
 
-  return <Layout>{deliveryTruck ? <Main /> : <Loading />}</Layout>;
+  return deliveryTruck ? <Main /> : <Loading />;
 };

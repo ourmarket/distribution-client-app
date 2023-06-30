@@ -25,7 +25,7 @@ export const Login = () => {
       }).unwrap();
       if (userData) {
         dispatch(setCredentials({ ...userData }));
-        
+
         navigate("/");
       }
     } catch (error) {
@@ -34,14 +34,14 @@ export const Login = () => {
   };
   return (
     <main className="auth__container">
-      <header className="navbar__container">
-        <div className="navbar__logo">
-          <img src="/images/logo/logo.png" alt="logo" />
-        </div>
-      </header>
+      <img
+        src="https://ik.imagekit.io/mrprwema7/logo_Q9WETsi7O.jpeg?updatedAt=1688137052389"
+        alt="logo"
+        className="logo__img"
+      />
       <section className="auth__form">
         <div className="auth__form__container">
-          <h2 className="title">Ingresa</h2>
+          <h2 className="title">Ingresar</h2>
           {isError && (
             <p className="login__error">
               Error en el login, inténtelo nuevamente
@@ -60,23 +60,35 @@ export const Login = () => {
           >
             {({ isSubmitting }) => (
               <Form>
-                <Field
-                  type="email"
-                  name="email"
-                  placeholder="Ingresa tu email"
-                />
+                <div className="input__container">
+                  <img
+                    src="https://ik.imagekit.io/mrprwema7/user_OkKLt0tst.png?updatedAt=1688138561573"
+                    alt="icono usuario"
+                  />
+                  <Field
+                    type="email"
+                    name="email"
+                    placeholder="Ingresa tu email"
+                  />
+                </div>
 
                 <ErrorMessage
                   name="email"
                   component="p"
                   className="login__error"
                 />
+                <div className="input__container">
+                  <img
+                    src="https://ik.imagekit.io/mrprwema7/password_sMXDhy2rr.png?updatedAt=1688138561435"
+                    alt="icono password"
+                  />
 
-                <Field
-                  type="password"
-                  name="password"
-                  placeholder="Ingresa tu contraseña"
-                />
+                  <Field
+                    type="password"
+                    name="password"
+                    placeholder="Ingresa tu contraseña"
+                  />
+                </div>
                 <ErrorMessage
                   name="password"
                   component="p"

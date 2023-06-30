@@ -1,15 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import Loading from "../components/loading/Loading";
 import useRefreshToken from "../hooks/useRefreshToken";
-
+import { getUser } from "../redux/userSlice";
 
 function PersistLogin() {
   const [isLoading, setIsLoading] = useState(true);
   const { token } = useSelector((state) => state.authDelivery);
   const refresh = useRefreshToken();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let isMounted = true;
@@ -36,6 +37,10 @@ function PersistLogin() {
     console.log(`isLoading: ${isLoading}`);
     console.log(`aT: ${token}`);
   }, [isLoading]);
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
 
   return isLoading ? <Loading /> : <Outlet />;
 }

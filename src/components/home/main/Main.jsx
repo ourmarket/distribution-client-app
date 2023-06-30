@@ -113,6 +113,8 @@ export const Main = () => {
 
   return (
     <main className="home__main__container">
+      <div></div>
+
       <div className="home__main__resume">
         <h3>Resumen de pagos</h3>
         <hr />
@@ -128,35 +130,52 @@ export const Main = () => {
           </h4>
         </div>
         <div className="home__main__row">
-          <h4>Deben</h4>
+          <h4>Deudas</h4>
           <h4>{orderPayment.debt ? formatPrice(orderPayment.debt) : "$0"}</h4>
         </div>
       </div>
-
-      <Link to="/ordenes/todos">
-        <article className="home__card__wrapper">
-          <h3>Total pedidos</h3>
-          <span className="orders total_orders">{allOrders.length}</span>
-        </article>
-      </Link>
-      <Link to="/ordenes/entregados">
-        <article className="home__card__wrapper">
-          <h3>Pedidos entregados</h3>
-          <span className="orders delivered_orders">{delivered.length}</span>
-        </article>
-      </Link>
-      <Link to="/ordenes/pendientes">
-        <article className="home__card__wrapper">
-          <h3>Pedidos pendientes</h3>
-          <span className="orders pending_orders">{pending.length}</span>
-        </article>
-      </Link>
-      <Link to="/ordenes/rechazados">
-        <article className="home__card__wrapper">
-          <h3>Pedidos rechazados</h3>
-          <span className="orders refused_orders">{refused.length}</span>
-        </article>
-      </Link>
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          width: "100%",
+          marginTop: "20px",
+        }}
+      >
+        <Link to="/ordenes/todos">
+          <article className="home__card__wrapper">
+            <h3>Total</h3>
+            <span className="orders total_orders">{allOrders.length}</span>
+          </article>
+        </Link>
+        <Link to="/ordenes/entregados">
+          <article className="home__card__wrapper">
+            <h3>Entregados</h3>
+            <span className="orders delivered_orders">{delivered.length}</span>
+          </article>
+        </Link>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          width: "100%",
+          marginTop: "20px",
+        }}
+      >
+        <Link to="/ordenes/pendientes">
+          <article className="home__card__wrapper">
+            <h3>Pendientes</h3>
+            <span className="orders pending_orders">{pending.length}</span>
+          </article>
+        </Link>
+        <Link to="/ordenes/rechazados">
+          <article className="home__card__wrapper">
+            <h3>Rechazados</h3>
+            <span className="orders refused_orders">{refused.length}</span>
+          </article>
+        </Link>
+      </div>
     </main>
   );
 };

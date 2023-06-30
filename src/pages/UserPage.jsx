@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetUserDeliveryTruckQuery } from "../api/apiDeliveryTruck";
-import { Layout } from "../components/layout/Layout";
 import Loading from "../components/loading/Loading";
 import { User } from "../components/user/User";
 import { getUser } from "../redux/userSlice";
@@ -19,13 +18,6 @@ export const UserPage = () => {
       dispatch(getUser(dataUser.data.deliveryTruck[0]));
     }
   }, [dataUser, dispatch]);
-  
-  return (
-    <Layout>
-      {
-        deliveryTruck ?  <User /> : <Loading />
-      }
-   
-  </Layout>
-  );
+
+  return <>{deliveryTruck ? <User /> : <Loading />}</>;
 };

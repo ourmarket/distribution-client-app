@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { Menu } from "../manu/Menu";
-import { Navbar } from "../navbar/Navbar";
+
 import { useLocations } from "../../hooks/useLocations";
+import { Menu } from "../tabMenu/Menu";
 
 export const Layout = ({ children }) => {
   useEffect(() => {
@@ -13,7 +13,6 @@ export const Layout = ({ children }) => {
   useLocations();
   return (
     <>
-      <Navbar />
       {children}
       <Menu />
     </>

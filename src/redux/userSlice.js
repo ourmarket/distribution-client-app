@@ -6,21 +6,19 @@ const userSlice = createSlice({
     deliveryTruck: null,
   },
   reducers: {
-    getUser: (state, action) => {
+    setUser: (state, action) => {
       state.deliveryTruck = action.payload;
-      localStorage.setItem("truckId", action.payload.truckId);
-      localStorage.setItem(
-        "deliveryName",
-        `${action.payload.user.name} ${action.payload.user.lastName}`
-      );
+      localStorage.setItem("deliveryData", JSON.stringify(action.payload));
+    },
+    getUser: (state, action) => {
+      state.deliveryTruck = JSON.parse(localStorage.getItem("deliveryData"));
     },
     clearUser: (state, action) => {
       state.deliveryTruck = null;
-      localStorage.removeItem("truckId");
-      localStorage.removeItem("deliveryName");
+      localStorage.removeItem("deliveryData");
     },
   },
 });
 
-export const { getUser, clearUser } = userSlice.actions;
+export const { setUser, getUser, clearUser } = userSlice.actions;
 export default userSlice.reducer;

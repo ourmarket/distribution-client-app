@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useLoadScript } from "@react-google-maps/api";
-import { Layout } from "../components/layout/Layout";
 import { Map } from "../components/map/Map";
 import Loading from "../components/loading/Loading";
 import { useSelector } from "react-redux";
@@ -19,5 +18,5 @@ export const MapPage = () => {
     deliveryName: `${deliveryTruck.user.name}  ${deliveryTruck.user.lastName}`,
   });
 
-  return <Layout>{isLoaded ? <Map data={data} /> : <Loading />}</Layout>;
+  return isLoaded ? <Map data={data} /> : <Loading />;
 };

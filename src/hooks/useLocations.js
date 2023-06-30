@@ -28,7 +28,9 @@ export const useLocations = () => {
       });
     }
     function error(error) {
-      console.log(`ERROR(${error.code}): ${error.message}`);
+      if (error.code !== 2) {
+        console.log(`ERROR(${error.code}): ${error.message}`);
+      }
     }
 
     const options = {
