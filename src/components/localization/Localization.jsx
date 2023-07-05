@@ -1,14 +1,12 @@
 /* eslint-disable no-undef */
-import { useContext } from "react";
 import { MapOrder } from "./MapOrder";
 import "./localization.css";
-import { LocationContext } from "../../context/LocationContext";
 import { useEffect } from "react";
 import { useState } from "react";
 
-export const Localization = ({ order }) => {
+export const Localization = ({ order, deliveryLocation }) => {
   const [directions, setDirections] = useState(null);
-  const { data: deliveryLocation } = useContext(LocationContext);
+
   const addressCoords = {
     lat: order.shippingAddress?.lat || -34.570428718491605,
     lng: order.shippingAddress?.lng || -58.743382510475065,
