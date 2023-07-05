@@ -7,6 +7,7 @@ import { useState } from "react";
 export const Localization = ({ order, deliveryLocation }) => {
   const [directions, setDirections] = useState(null);
 
+  console.log("Coordenadas repartidor>>>>>>", deliveryLocation);
   const addressCoords = {
     lat: order.shippingAddress?.lat || -34.570428718491605,
     lng: order.shippingAddress?.lng || -58.743382510475065,
@@ -28,7 +29,9 @@ export const Localization = ({ order, deliveryLocation }) => {
         }
       );
     };
-    fetchDirections();
+    if (deliveryLocation) {
+      fetchDirections();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deliveryLocation]);
 
@@ -38,7 +41,7 @@ export const Localization = ({ order, deliveryLocation }) => {
     <div className="localization__container">
       <div className="localization__map">
         <MapOrder
-          data={deliveryLocation}
+          deliveryLocation={deliveryLocation}
           directions={directions}
           addressCoords={addressCoords}
         />

@@ -1,78 +1,25 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import React, { useMemo } from "react";
 import {
   DirectionsRenderer,
   GoogleMap,
-  InfoWindow,
   Marker,
   Polygon,
 } from "@react-google-maps/api";
-
-import { formatPrice } from "../../utils/formatPrice";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useSelector } from "react-redux";
 import { optionZones, zones } from "../../data/Zones";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
-/* function ClientMarker({ data }) {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(!open);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const divStyle = {
-    background: `white`,
-    border: `1px solid #ccc`,
-    padding: 15,
-    textAlign: "center",
-  };
-  return (
-    <Marker
-      position={{
-        lat: data.shippingAddress.lat,
-        lng: data.shippingAddress.lng,
-      }}
-      onClick={handleOpen}
-      icon={
-        data.status === "Entregado"
-          ? "https://ik.imagekit.io/mrprwema7/geo-icon-16__2__FMgqGb84R.png?updatedAt=1686144731319"
-          : null
-      }
-    >
-      {open && (
-        <InfoWindow
-          position={{
-            lat: data.shippingAddress.lat,
-            lng: data.shippingAddress.lng,
-          }}
-          onCloseClick={handleClose}
-        >
-          <div style={divStyle}>
-            <h2>
-              {data.shippingAddress.name} {data.shippingAddress.lastName}
-            </h2>
-            <h3>{data.shippingAddress.address}</h3>
-            <h3>Estado: {data.status}</h3>
-            <h3>{formatPrice(data.total)}</h3>
-            <h3 style={{ marginBottom: "5px" }}>{data.deliveryZone.name}</h3>
-            <Link to={`/clientes/detalle/${data.client}`}>Ver Cliente</Link>
-          </div>
-        </InfoWindow>
-      )}
-    </Marker>
-  );
-} */
-
-export const MapOrder = ({ data, directions, addressCoords }) => {
+export const MapOrder = ({ deliveryLocation, directions, addressCoords }) => {
+  const navigate = useNavigate();
   const local = useMemo(
     () => ({ lat: -34.570428718491605, lng: -58.743382510475065 }),
     []
   );
-  const center = useMemo(() => ({ lat: data.lat, lng: data.lng }), [data]);
+  const center = useMemo(
+    () => ({ lat: deliveryLocation.lat, lng: deliveryLocation.lng }),
+    [deliveryLocation]
+  );
   const options = useMemo(
     () => ({
       clickableIcons: false,
@@ -87,8 +34,6 @@ export const MapOrder = ({ data, directions, addressCoords }) => {
     }),
     []
   );
-  const ordersDirections = useSelector((store) => store.order.allOrders);
-  const navigate = useNavigate();
 
   return (
     <div>
