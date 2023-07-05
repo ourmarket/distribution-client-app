@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { dateToLocalDate } from "../../../utils/dateFormat";
 import { BsWhatsapp } from "react-icons/bs";
 import { formatPrice } from "../../../utils/formatPrice";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const DataClient = ({ order, unpaidOrders }) => {
-  const { id } = useParams();
   const [seeUnpaid, setSeeUnpaid] = useState(false);
 
   const totalDebt = unpaidOrders.reduce(
@@ -22,7 +21,10 @@ export const DataClient = ({ order, unpaidOrders }) => {
       </div>
       <div className="row flex sb">
         <p>Dirección</p>
-        <Link to={`/home/ubicacion/${id}`}>
+        <a
+          style={{ textDecoration: "underline" }}
+          href={`https://maps.google.com/?q=${order.shippingAddress.lat},${order.shippingAddress.lng}`}
+        >
           <div className="order__address">
             <img
               src="https://ik.imagekit.io/mrprwema7/location_home_BMvJcc21T.png?updatedAt=1688475436747"
@@ -31,7 +33,7 @@ export const DataClient = ({ order, unpaidOrders }) => {
 
             <p>{order.shippingAddress.address}</p>
           </div>
-        </Link>
+        </a>
       </div>
       <div className="row flex sb">
         <p>Teléfono</p>
