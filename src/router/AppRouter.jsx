@@ -24,7 +24,7 @@ export const AppRouter = () => {
             <Route path="/home/ordenes/:status" element={<OrderStatusPage />} />
             <Route path="/home/order/:id" element={<OrderDetailPage />} />
             <Route
-              path="/orderUnpaid/:id"
+              path="/home/orderUnpaid/:id"
               element={<OrderDetailUnpaidPage />}
             />
             <Route path="/productos" element={<ListProductsPage />} />

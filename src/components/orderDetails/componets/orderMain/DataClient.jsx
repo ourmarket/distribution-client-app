@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { dateToLocalDate } from "../../../utils/dateFormat";
 import { BsWhatsapp } from "react-icons/bs";
-import { formatPrice } from "../../../utils/formatPrice";
 import { Link } from "react-router-dom";
+import { dateToLocalDate } from "../../../../utils/dateFormat";
+import { formatPrice } from "../../../../utils/formatPrice";
 
 export const DataClient = ({ order, unpaidOrders }) => {
   const [seeUnpaid, setSeeUnpaid] = useState(false);
@@ -24,6 +24,8 @@ export const DataClient = ({ order, unpaidOrders }) => {
         <a
           style={{ textDecoration: "underline" }}
           href={`https://maps.google.com/?q=${order.shippingAddress.lat},${order.shippingAddress.lng}`}
+          target="_blank"
+          rel="noreferrer"
         >
           <div className="order__address">
             <img
@@ -85,7 +87,7 @@ export const DataClient = ({ order, unpaidOrders }) => {
             <p>{dateToLocalDate(order.deliveryDate)}hs</p>
             <p>
               {formatPrice(order.payment.debt)}{" "}
-              <Link to={`/orderUnpaid/${order._id}`}>(Ver)</Link>
+              <Link to={`/home/orderUnpaid/${order._id}`}>(Ver)</Link>
             </p>
           </div>
         ))}

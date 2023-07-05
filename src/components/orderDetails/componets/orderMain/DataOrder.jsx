@@ -1,6 +1,5 @@
-import React from "react";
-import { dateToLocalDate } from "../../../utils/dateFormat";
-import { formatPrice } from "../../../utils/formatPrice";
+import { dateToLocalDate } from "../../../../utils/dateFormat";
+import { formatPrice } from "../../../../utils/formatPrice";
 
 export const DataOrder = ({ order }) => {
   return (

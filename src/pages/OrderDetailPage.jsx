@@ -1,8 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useGetOrderQuery } from "../api/apiOrders";
-
 import Loading from "../components/loading/Loading";
-import { OrderDetail } from "../components/pedido/OrderDetail";
+import { OrderDetail } from "../components/orderDetails/OrderDetail";
 
 export const OrderDetailPage = () => {
   const { id } = useParams();

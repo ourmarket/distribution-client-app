@@ -51,7 +51,31 @@ function ClientMarker({ data }) {
             <h3>Estado: {data.status}</h3>
             <h3>{formatPrice(data.total)}</h3>
             <h3 style={{ marginBottom: "5px" }}>{data.deliveryZone.name}</h3>
-            <Link to={`/clientes/detalle/${data.client}`}>Ver Cliente</Link>
+            <Link
+              to={`/home/order/${data._id}`}
+              style={{
+                color: "blue",
+                lineHeight: "1px",
+                fontSize: "18px",
+                display: "block",
+                marginTop: "15px",
+              }}
+            >
+              -Ver Orden-
+            </Link>
+            <br />
+            <a
+              style={{
+                color: "blue",
+                marginBottom: "5px",
+                fontSize: "18px",
+              }}
+              href={`https://maps.google.com/?q=${data.shippingAddress.lat},${data.shippingAddress.lng}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              -Ruta GPS-
+            </a>
           </div>
         </InfoWindow>
       )}

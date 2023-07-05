@@ -1,0 +1,17 @@
+.debtOrderDetails__container {
+  min-height: calc(100vh + 70px);
+  padding: 20px 10px;
+  text-align: center;
+  padding-bottom: 60px;
+}
+.debtOrderDetails__container h2 {
+  margin-bottom: 15px;
+  font-family: var(--font-1);
+  letter-spacing: 2px;
+  position: relative;
+}
+.debtOrderDetails__container h2 span {
+  position: absolute;
+  left: 0;
+  top: 5px;
+}

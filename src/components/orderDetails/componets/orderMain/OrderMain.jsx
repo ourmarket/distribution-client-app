@@ -1,16 +1,22 @@
-import React from "react";
 import { DataClient } from "./DataClient";
 import { DataOrder } from "./DataOrder";
 import { DataPaid } from "./DataPaid";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { PdfViewOrder } from "../PdfViewOrder";
-import { formatDateMonth } from "../../../utils/dateFormat";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { PdfViewOrder } from "../orderRecipePdf/PdfViewOrder";
+import { formatDateMonth } from "../../../../utils/dateFormat";
+import { useEffect } from "react";
 
-export const OrderDetailMain = ({ order, unpaidOrders, setMenu }) => {
+export const OrderMain = ({ order, unpaidOrders, setMenu }) => {
   const navigate = useNavigate();
   const { id } = useParams();
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
+  }, []);
 
   return (
     <>
@@ -27,7 +33,7 @@ export const OrderDetailMain = ({ order, unpaidOrders, setMenu }) => {
       ) : null}
 
       <button className="btn__estado " onClick={() => setMenu(true)}>
-        Cambiar estado
+        Entregar Pedido
       </button>
       <button
         className="btn__volver "
