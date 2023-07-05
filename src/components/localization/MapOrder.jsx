@@ -67,6 +67,7 @@ export const MapOrder = ({ deliveryLocation, directions, addressCoords }) => {
                 strokeWeight: 5,
               },
               suppressMarkers: true,
+              preserveViewport: true,
             }}
           />
         )}

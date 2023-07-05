@@ -35,8 +35,6 @@ export const Localization = ({ order, deliveryLocation }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deliveryLocation]);
 
-  console.log(directions);
-
   return (
     <div className="localization__container">
       <div className="localization__map">
