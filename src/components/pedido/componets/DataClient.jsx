@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import { dateToLocalDate } from "../../../utils/dateFormat";
 import { BsWhatsapp } from "react-icons/bs";
 import { formatPrice } from "../../../utils/formatPrice";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export const DataClient = ({ order, unpaidOrders }) => {
+  const { id } = useParams();
   const [seeUnpaid, setSeeUnpaid] = useState(false);
-  
-  const totalDebt = unpaidOrders.reduce( (acc, curr) => acc + curr.payment.debt,  0)
-  
+
+  const totalDebt = unpaidOrders.reduce(
+    (acc, curr) => acc + curr.payment.debt,
+    0
+  );
+
   return (
     <article className="pedido__card">
       <h3>Datos cliente</h3>
@@ -18,7 +22,16 @@ export const DataClient = ({ order, unpaidOrders }) => {
       </div>
       <div className="row flex sb">
         <p>Dirección</p>
-        <p>{order.shippingAddress.address}</p>
+        <Link to={`/home/ubicacion/${id}`}>
+          <div className="order__address">
+            <img
+              src="https://ik.imagekit.io/mrprwema7/location_home_BMvJcc21T.png?updatedAt=1688475436747"
+              alt="icono"
+            />
+
+            <p>{order.shippingAddress.address}</p>
+          </div>
+        </Link>
       </div>
       <div className="row flex sb">
         <p>Teléfono</p>
@@ -42,7 +55,19 @@ export const DataClient = ({ order, unpaidOrders }) => {
         <p>{dateToLocalDate(order.createdAt)}hs</p>
       </div>
       <div className="row flex sb" style={{ color: "red", fontWeight: 800 }}>
-        <p>Ordenes impagas <span style={{backgroundColor: "red", borderRadius: "50%", color: "white", padding: "3px 10px"}}>{unpaidOrders.length}</span></p>
+        <p>
+          Ordenes impagas{" "}
+          <span
+            style={{
+              backgroundColor: "red",
+              borderRadius: "50%",
+              color: "white",
+              padding: "3px 10px",
+            }}
+          >
+            {unpaidOrders.length}
+          </span>
+        </p>
 
         <p
           style={{ textDecoration: "underline" }}

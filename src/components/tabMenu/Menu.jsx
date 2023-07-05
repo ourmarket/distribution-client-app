@@ -1,13 +1,15 @@
 import "./menu.css";
 import { BiHome } from "react-icons/bi";
 import { BiUser } from "react-icons/bi";
-import { BsCartPlus, BsTruck } from "react-icons/bs";
-import { BiCheckDouble } from "react-icons/bi";
+import { BsBoxSeam, BsFillGeoAltFill } from "react-icons/bs";
+import { GiHistogram } from "react-icons/gi";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export const Menu = () => {
   const { pathname } = useLocation();
+  const splitPath = pathname.split("/");
+  console.log(splitPath);
   console.log(window.screen.width);
   const [width, setWidth] = useState(null);
 
@@ -32,34 +34,32 @@ export const Menu = () => {
     <>
       <section className="menu__container">
         <ul className="list__ul">
-          <li className={pathname === "/" ? "list__li active" : "list__li"}>
+          <li
+            className={
+              pathname === "/" || splitPath.includes("home")
+                ? "list__li active"
+                : "list__li"
+            }
+          >
             <Link to={"/"}>
               <BiHome />
               <span className="menu__title">Home</span>
             </Link>
           </li>
-          <li
-            className={
-              pathname === "/ordenes/pendientes"
-                ? "list__li active"
-                : "list__li"
-            }
-          >
-            <Link to={"/ordenes/pendientes"}>
-              <BsTruck />
-              <span className="menu__title">Pendien.</span>
+          <li className={pathname === "/mapa" ? "list__li active" : "list__li"}>
+            <Link to={"/mapa"}>
+              <BsFillGeoAltFill />
+              <span className="menu__title">Mapa</span>
             </Link>
           </li>
           <li
             className={
-              pathname === "/ordenes/entregados"
-                ? "list__li active"
-                : "list__li"
+              pathname === "/historial" ? "list__li active" : "list__li"
             }
           >
-            <Link to={"/ordenes/entregados"}>
-              <BiCheckDouble />
-              <span className="menu__title">Entreg.</span>
+            <Link to={"/historial"}>
+              <GiHistogram />
+              <span className="menu__title">Histor.</span>
             </Link>
           </li>
           <li
@@ -68,7 +68,7 @@ export const Menu = () => {
             }
           >
             <Link to={"/productos"}>
-              <BsCartPlus />
+              <BsBoxSeam />
               <span className="menu__title">Produc.</span>
             </Link>
           </li>

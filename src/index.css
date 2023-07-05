@@ -121,5 +121,9 @@ input {
 
 .map-container {
   width: 100%;
-  height: 87vh;
+  height: 65vh;
+}
+.AllOrdersMap-container {
+  width: 100%;
+  height: 88vh;
 }

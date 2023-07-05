@@ -11,7 +11,10 @@ const userSlice = createSlice({
       localStorage.setItem("deliveryData", JSON.stringify(action.payload));
     },
     getUser: (state) => {
-      state.deliveryTruck = JSON.parse(localStorage.getItem("deliveryData"));
+      const user = localStorage.getItem("deliveryData");
+      if (user) {
+        state.deliveryTruck = JSON.parse(user);
+      }
     },
     clearUser: (state) => {
       state.deliveryTruck = null;

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useLoginMutation } from "../../api/apiAuth";
 import { setCredentials } from "../../redux/authSlice";
+import { setUser } from "../../redux/userSlice";
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Formato invalido").required("Requerido"),
@@ -25,6 +26,7 @@ export const Login = () => {
       }).unwrap();
       if (userData) {
         dispatch(setCredentials({ ...userData }));
+        dispatch(setUser(userData.deliveryTruck));
 
         navigate("/");
       }

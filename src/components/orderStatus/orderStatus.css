@@ -1,57 +1,69 @@
-.todos__container{
-    min-height: calc(100vh + 150px);
-    text-align: center;
-    padding: 20px 10px;
-    margin-bottom: 50px;
+.todos__container {
+  min-height: calc(100vh + 150px);
+  text-align: center;
+  padding: 20px 10px;
+  margin-bottom: 80px;
 }
-.todos__container h2{
-    margin-bottom: 15px;
-    font-family: var(--font-1);
-    letter-spacing: 2px;
+.todos__container h2 {
+  margin-bottom: 15px;
+  font-family: var(--font-1);
+  letter-spacing: 2px;
+  position: relative;
 }
-.row{
-    display: flex;
-    justify-content: space-between;
+.todos__container h2 span {
+  position: absolute;
+  left: 0;
+  top: 5px;
 }
-.col{
-    flex-direction: column;
-    *text-align: left;
-    border: 1px solid #ccc;
-    padding: 10px 2px;
+.row {
+  display: flex;
+  justify-content: space-between;
 }
-.col-1{
-    flex: 1;
+.col {
+  flex-direction: column;
+  *text-align: left;
+  border: 1px solid #ccc;
+  padding: 10px 2px;
 }
-.col-2{
-    flex: 2;
+.col-1 {
+  flex: 1;
 }
-.col-3{
-    flex: 3;
+.col-2 {
+  flex: 2;
 }
-.title{
-    font-size: 18px;
-    font-weight: 600;
+.col-3 {
+  flex: 3;
 }
-.btn-estado{
-    padding: 4px 8px;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    font-weight: 600;
+.title {
+  font-size: 18px;
+  font-weight: 600;
 }
-
-.order__card__container{
-    box-shadow: 3px 3px 5px rgba(102, 102, 102, 0.704), -3px -1px 5px rgba(102, 102, 102, 0.714);
-    padding: 10px 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
-}
-.order__status-circle{
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    
-    display: inline-block;
-    border: 1px solid var(--color-black);
+.btn-estado {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 600;
 }
 
+.order__card__container {
+  box-shadow: 3px 3px 5px #ccc, -3px -1px 5px #ccc;
+  padding: 10px 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  background-color: white;
+}
+.order__status-circle {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+
+  display: inline-block;
+  border: 1px solid var(--color-black);
+}
+.order__card__distance {
+  background-color: var(--color-red);
+  color: white;
+  padding: 1px 3px;
+  border-radius: 5px;
+}

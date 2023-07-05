@@ -9,7 +9,13 @@ export const orderApi = apiSlice.injectEndpoints({
 
   endpoints: (builder) => ({
     getOrders: builder.query({
-      query: (delivery ) => `/orders?active=true&delivery=${delivery}`,
+      query: (delivery) => `/orders?active=true&delivery=${delivery}`,
+      // keepUnusedDataFor: 3,
+      extraOptions: { maxRetries: 5 },
+      providesTags: ["orders"],
+    }),
+    getAllOrdersActive: builder.query({
+      query: () => "/orders/active",
       // keepUnusedDataFor: 3,
       extraOptions: { maxRetries: 5 },
       providesTags: ["orders"],
@@ -21,7 +27,7 @@ export const orderApi = apiSlice.injectEndpoints({
       extraOptions: { maxRetries: 3 },
       providesTags: ["orders"],
     }),
-    
+
     getClientOrderDebt: builder.query({
       query: (id) => `/orders/clientDebt/${id}`,
       // keepUnusedDataFor: 3,
@@ -64,6 +70,8 @@ export const {
   useGetOrdersQuery,
   useGetOrderQuery,
   useGetClientOrderDebtQuery,
+
+  useGetAllOrdersActiveQuery,
 
   usePostOrderMutation,
   usePutOrderMutation,

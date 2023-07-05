@@ -6,12 +6,15 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { SocketProvider } from "./context/SocketContext";
+import { LocationProvider } from "./context/LocationContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <SocketProvider>
-      <App />
+      <LocationProvider>
+        <App />
+      </LocationProvider>
     </SocketProvider>
   </Provider>
 );

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 
-import { useLocations } from "../../hooks/useLocations";
 import { Menu } from "../tabMenu/Menu";
 
 export const Layout = ({ children }) => {
@@ -10,7 +9,6 @@ export const Layout = ({ children }) => {
     }, 0);
   }, []);
 
-  useLocations();
   return (
     <>
       {children}

@@ -1,17 +1,24 @@
 import "./orderStatus.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { OrderStatusCard } from "./OrderStatusCard";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 export const OrderStatus = () => {
   const { status } = useParams();
   const { allOrders, pending, delivered, refused } = useSelector(
     (state) => state.order
   );
+  const navigate = useNavigate();
 
   return (
     <section className="todos__container">
-      <h2>Lista de pedidos</h2>
+      <h2>
+        <span onClick={() => navigate(-1)}>
+          <IoMdArrowRoundBack />
+        </span>
+        Lista de pedidos
+      </h2>
       {status === "todos" && (
         <div>
           {allOrders.map((order) => (
@@ -46,8 +53,6 @@ export const OrderStatus = () => {
           )}
         </div>
       )}
-     
-     
     </section>
   );
 };
