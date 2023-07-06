@@ -24,7 +24,7 @@ export const LocalizationPage = () => {
     <>
       {(l1 || !isLoaded) && <Loading />}
       {e1 && <Error />}
-      {orderData && deliveryLocation && (
+      {orderData && deliveryLocation && isLoaded && (
         <Localization
           order={orderData.data.order}
           deliveryLocation={deliveryLocation}
