@@ -1,8 +1,9 @@
-/* eslint-disable no-undef */
 import { MapOrder } from "./MapOrder";
 import "./localization.css";
 import { useEffect } from "react";
 import { useState } from "react";
+
+const google = window.google;
 
 export const Localization = ({ order, deliveryLocation }) => {
   const [directions, setDirections] = useState(null);
