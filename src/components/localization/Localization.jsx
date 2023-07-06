@@ -3,8 +3,6 @@ import "./localization.css";
 import { useEffect } from "react";
 import { useState } from "react";
 
-const google = window.google;
-
 export const Localization = ({ order, deliveryLocation }) => {
   const [directions, setDirections] = useState(null);
 
@@ -16,12 +14,12 @@ export const Localization = ({ order, deliveryLocation }) => {
 
   useEffect(() => {
     const fetchDirections = () => {
-      const service = new google.maps.DirectionsService();
+      const service = new window.google.maps.DirectionsService();
       service.route(
         {
           origin: deliveryLocation,
           destination: addressCoords,
-          travelMode: google.maps.TravelMode.DRIVING,
+          travelMode: window.google.maps.TravelMode.DRIVING,
         },
         (result, status) => {
           if (status === "OK" && result) {
