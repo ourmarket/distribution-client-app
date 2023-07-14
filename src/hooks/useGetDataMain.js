@@ -21,7 +21,7 @@ export const useGetDataMain = (data) => {
   const { user } = useSelector((store) => store.authDelivery);
 
   const filterByDelivery = data.data.orders.filter(
-    (order) => order.deliveryTruck.user === user
+    (order) => order?.deliveryTruck?.user === user
   );
 
   const addDistanceOrder = filterByDelivery
