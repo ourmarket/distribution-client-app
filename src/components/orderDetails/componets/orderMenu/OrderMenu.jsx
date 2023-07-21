@@ -21,11 +21,11 @@ export const OrderMenu = ({ order, id, setMenu }) => {
       status: values.status,
       commentary: values.commentary,
       deliveryDate: order.deliveryDate ? order.deliveryDate : new Date(),
-      paid: cash + transfer === order.total ? true : false,
+      paid: +cash + +transfer === order.total,
       payment: {
-        cash: cash || 0,
-        debt: debt || 0,
-        transfer: transfer || 0,
+        cash: +cash || 0,
+        debt: +debt || 0,
+        transfer: +transfer || 0,
       },
     };
 
