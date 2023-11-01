@@ -18,7 +18,7 @@ function PersistLogin() {
     const verifyRefreshToken = async () => {
       try {
         await refresh();
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>Refresh");
+        console.log(">>>Refresh");
       } catch (err) {
         console.log(err);
       } finally {
@@ -32,11 +32,6 @@ function PersistLogin() {
 
     return () => (isMounted = false);
   }, []);
-
-  useEffect(() => {
-    console.log(`isLoading: ${isLoading}`);
-    console.log(`aT: ${token}`);
-  }, [isLoading]);
 
   useEffect(() => {
     dispatch(getUser());

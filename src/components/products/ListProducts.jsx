@@ -4,11 +4,11 @@ import { formatQuantity } from "../../utils/quantityFormat";
 
 export const ListProducts = () => {
   const { all } = useSelector((store) => store.products);
-  console.log(all);
+
   return (
     <section className="listProducts__container">
       <h1>Lista de productos</h1>
-      <h3>(A repartir hoy)</h3>
+      <h3>a repartir hoy</h3>
       <div className="listProducts__products">
         {all.map((product) => (
           <div className="listProducts__products__card">

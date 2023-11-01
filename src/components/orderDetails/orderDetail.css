@@ -46,7 +46,7 @@
 }
 
 .btn__estado {
-  background-color: var(--color-red);
+  background-color: var(--color-primary);
   padding: 10px;
   width: 100%;
   border-radius: 8px;
@@ -66,20 +66,20 @@
   border: none;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--color-red);
-  border: 2px solid var(--color-red);
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
   font-weight: 600;
   background-color: white;
 }
 #item_totalQuantity {
-  border: 2px solid var(--color-red);
+  border: 2px solid var(--color-primary);
   border-radius: 50%;
   min-width: 35px;
   padding: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-red);
+  color: var(--color-primary);
 }
 
 /* ---------------formulario cambiar estado------------ */

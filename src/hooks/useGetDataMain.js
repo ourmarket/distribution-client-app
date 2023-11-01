@@ -35,7 +35,6 @@ export const useGetDataMain = (data) => {
       ),
     }))
     .sort((a, b) => a.distance - b.distance);
-  console.log(addDistanceOrder);
 
   const [orderPayment, setOrderPayment] = useState({});
 

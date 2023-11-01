@@ -8,6 +8,7 @@ export const useLocations = () => {
   const { socket } = useContext(SocketContext);
 
   const { deliveryTruck } = useSelector((store) => store.user);
+  const { superUser } = useSelector((store) => store.authDelivery);
 
   const [data, setData] = useState({
     truckId: deliveryTruck?.truckId,
@@ -15,6 +16,7 @@ export const useLocations = () => {
     lat: -34.570428718491605,
     lng: -58.743382510475065,
     update: new Date(),
+    superUser,
   });
 
   useEffect(() => {
@@ -25,6 +27,7 @@ export const useLocations = () => {
         lat: position?.coords?.latitude || -34.570428718491605,
         lng: position?.coords?.longitude || -58.743382510475065,
         update: new Date(),
+        superUser,
       });
     }
     function error(error) {
@@ -40,10 +43,12 @@ export const useLocations = () => {
     };
 
     navigator.geolocation.watchPosition(success, error, options);
-  }, [deliveryTruck]);
+  }, [deliveryTruck, superUser]);
 
   useEffect(() => {
-    socket.emit("position", data);
+    if (socket) {
+      socket.emit("position", data);
+    }
   }, [data]);
 
   return {

@@ -21,7 +21,6 @@
 }
 .col {
   flex-direction: column;
-  *text-align: left;
   border: 1px solid #ccc;
   padding: 10px 2px;
 }
@@ -62,7 +61,7 @@
   border: 1px solid var(--color-black);
 }
 .order__card__distance {
-  background-color: var(--color-red);
+  background-color: var(--color-primary);
   color: white;
   padding: 1px 3px;
   border-radius: 5px;

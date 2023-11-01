@@ -37,7 +37,7 @@ export const Login = () => {
   return (
     <main className="auth__container">
       <img
-        src="https://ik.imagekit.io/mrprwema7/logo_Q9WETsi7O.jpeg?updatedAt=1688137052389"
+        src="https://ik.imagekit.io/mrprwema7/OurMarket/our-market-low-resolution-logo-color-on-transparent-background_tryvGRTNa.png?updatedAt=1695680889949"
         alt="logo"
         className="logo__img"
       />
@@ -64,7 +64,7 @@ export const Login = () => {
               <Form>
                 <div className="input__container">
                   <img
-                    src="https://ik.imagekit.io/mrprwema7/user_OkKLt0tst.png?updatedAt=1688138561573"
+                    src="https://ik.imagekit.io/mrprwema7/OurMarket/user_OkKLt0tst%20(1)__K2sUFDZJ.png?updatedAt=1695681678392"
                     alt="icono usuario"
                   />
                   <Field
@@ -81,7 +81,7 @@ export const Login = () => {
                 />
                 <div className="input__container">
                   <img
-                    src="https://ik.imagekit.io/mrprwema7/password_sMXDhy2rr.png?updatedAt=1688138561435"
+                    src="https://ik.imagekit.io/mrprwema7/OurMarket/password_sMXDhy2rr%20(1)_Z8pTPQmhK.png?updatedAt=1695681678685"
                     alt="icono password"
                   />
 

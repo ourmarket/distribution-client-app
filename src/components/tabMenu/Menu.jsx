@@ -9,8 +9,7 @@ import { useEffect, useState } from "react";
 export const Menu = () => {
   const { pathname } = useLocation();
   const splitPath = pathname.split("/");
-  console.log(splitPath);
-  console.log(window.screen.width);
+
   const [width, setWidth] = useState(null);
 
   useEffect(() => {

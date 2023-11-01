@@ -1,6 +1,6 @@
 .menu__container {
   height: 70px;
-  background-color: #e90606;
+  background-color: var(--color-primary);
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -70,8 +70,8 @@
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  border: 6px solid #f1f1f1;
-  background: #545353;
+  border: 6px solid var(--color-white);
+  background: var(--color-secondary);
   transition: var(--easing);
   z-index: 2;
 }
@@ -101,7 +101,7 @@
   height: 20px;
   background: transparent;
   border-top-right-radius: 20px;
-  box-shadow: 0 -10px 0 0 #f1f1f1;
+  box-shadow: 0 -10px 0 0 var(--color-white);
 }
 .indicator::after {
   content: "";
@@ -112,12 +112,12 @@
   height: 20px;
   background: transparent;
   border-top-left-radius: 20px;
-  box-shadow: 0 -10px 0 0 #f1f1f1;
+  box-shadow: 0 -10px 0 0 var(--color-white);
 }
 .white {
   height: 20px;
   max-width: 600px;
-  background-color: #f1f1f1;
+  background-color: var(--color-white);
   left: -10px;
   right: 0;
   bottom: 60px;

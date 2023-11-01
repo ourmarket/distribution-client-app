@@ -23,7 +23,7 @@
   color: #7b7b7b;
 }
 .localization__distance {
-  background-color: var(--color-red);
+  background-color: var(--color-primary);
   color: white;
   padding: 1px 3px;
   border-radius: 5px;
@@ -39,7 +39,7 @@
   position: fixed;
   top: 15px;
   left: 15px;
-  background-color: var(--color-red);
+  background-color: var(--color-primary);
   color: white;
   width: 35px;
   height: 35px;

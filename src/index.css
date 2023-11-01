@@ -14,6 +14,8 @@
   --color-red: #db1212;
   --color-black: #4c4c4c;
   --color-white: #f1f1f1;
+  --color-primary: #009fc7;
+  --color-secondary: #545353;
 
   --font-1: "Open Sans", sans-serif;
   --font-2: "Bebas Neue", sans-serif;
@@ -70,13 +72,13 @@ input {
 /*-------------- boton con loading---------------- */
 
 .btn-load {
-  background-color: var(--color-red);
+  background-color: var(--color-primary);
   border: none;
   color: white;
   cursor: pointer;
   font-size: 15px;
   letter-spacing: 4px;
-
+  border-radius: 10px;
   padding: 15px;
   text-transform: uppercase;
   transition: all 0.3s ease;
@@ -126,4 +128,9 @@ input {
 .AllOrdersMap-container {
   width: 100%;
   height: 88vh;
+}
+
+select,
+input {
+  outline-color: var(--color-primary);
 }
