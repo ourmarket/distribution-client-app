@@ -2,9 +2,10 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import "./user.css";
 import * as Yup from "yup";
 import { usePutUserChangePasswordMutation } from "../../api/apiUser";
-import {  useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
 import Swal from "sweetalert2";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const SignupSchema = Yup.object().shape({
   password: Yup.string().min(6, "6 caracteres mínimo").required("Requerido"),
@@ -15,18 +16,17 @@ const SignupSchema = Yup.object().shape({
     .oneOf([Yup.ref("newPassword")], "Las contraseñas deben ser iguales"),
 });
 
-export const ChangePassword = ({ id, setMenu }) => {
-  const dispatch = useDispatch();
-  
+export const ChangePassword = ({ id }) => {
+  const navigate = useNavigate();
+
   const [editUser, { isLoading, isError }] =
     usePutUserChangePasswordMutation(id);
   const [error, setError] = useState("");
-  
+
   const handleSubmit = async (values) => {
-    console.log(values)
     try {
       const res = await editUser({ id, ...values }).unwrap();
-      if (res) {
+      if (res.ok) {
         //dispatch(setMenu(false));
         Swal.fire({
           position: "center",
@@ -35,7 +35,7 @@ export const ChangePassword = ({ id, setMenu }) => {
           showConfirmButton: false,
           timer: 2500,
         });
-        dispatch(setMenu(false));
+        navigate("/user");
       }
     } catch (error) {
       console.log(error);
@@ -44,14 +44,16 @@ export const ChangePassword = ({ id, setMenu }) => {
       }
     }
   };
- 
-  
 
   return (
-    <div className="overlay">
-      <div className="change__password__container">
-        <h3>Cambiar contraseña</h3>
-
+    <div className="change__password__container">
+      <h1>
+        <span onClick={() => navigate("/user")}>
+          <IoMdArrowRoundBack />
+        </span>
+        Cambiar contraseña
+      </h1>
+      <div className="change__password__wrapper">
         <Formik
           initialValues={{
             password: "",
@@ -74,7 +76,7 @@ export const ChangePassword = ({ id, setMenu }) => {
               <ErrorMessage
                 name="password"
                 component="p"
-                className="login__error"
+                className="password_error"
               />
               <Field
                 type="password"
@@ -85,10 +87,10 @@ export const ChangePassword = ({ id, setMenu }) => {
               <ErrorMessage
                 name="newPassword"
                 component="p"
-                className="login__error"
+                className="password_error"
               />
               <Field
-               type="password"
+                type="password"
                 name="newPassword2"
                 placeholder="Re ingresa tu nuevo password"
               />
@@ -96,7 +98,7 @@ export const ChangePassword = ({ id, setMenu }) => {
               <ErrorMessage
                 name="newPassword2"
                 component="p"
-                className="login__error"
+                className="password_error"
               />
 
               {error && <p style={{ color: "red" }}>{}</p>}
@@ -110,9 +112,7 @@ export const ChangePassword = ({ id, setMenu }) => {
               >
                 <span className="button__text">Enviar</span>
               </button>
-              <button className="btn__volver" onClick={() => setMenu(false)}>
-                Cerrar
-              </button>
+
               {isError && (
                 <p className="form__error">
                   ❌Error, tu password no se ha cambiado

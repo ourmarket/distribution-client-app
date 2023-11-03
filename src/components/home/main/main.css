@@ -9,7 +9,7 @@
 }
 .home__card__wrapper {
   border-radius: 15px;
-  box-shadow: 3px 3px 5px #ccc, -3px -1px 5px #ccc;
+  box-shadow: var(--box-shadow-1);
   padding: 15px;
   position: relative;
   height: 120px;
@@ -22,9 +22,10 @@
   flex-direction: column;
   width: 100%;
   text-align: center;
-  box-shadow: 3px 3px 5px #ccc, -3px -1px 5px #ccc;
+  box-shadow: var(--box-shadow-1);
   padding: 15px;
   background-color: white;
+  margin-bottom: 10px;
 }
 .home__main__resume h3 {
   margin-bottom: 8px;
@@ -72,14 +73,14 @@
   font-size: 35px;
 }
 .total_orders {
-  background-color: #158dbc;
+  background: var(--gradient-blue);
 }
 .delivered_orders {
-  background-color: #37b00b;
+  background: var(--gradient-green);
 }
 .pending_orders {
-  background-color: #ddd613;
+  background: var(--gradient-yellow);
 }
 .refused_orders {
-  background-color: #dd132b;
+  background: var(--gradient-red);
 }

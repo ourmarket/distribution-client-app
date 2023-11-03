@@ -1,19 +1,20 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../redux/authSlice";
-import { ChangePassword } from "./ChangePassword";
 
 import "./user.css";
+import { useNavigate } from "react-router-dom";
 
 export const User = () => {
   const { deliveryTruck } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const [menu, setMenu] = useState(false);
+  const navigate = useNavigate();
+
   return (
     <>
       <main className="user__container">
+        <h1>Mi perfil</h1>
         <section className="user__section">
-          <h3>Mi perfil</h3>
+          <h3>Datos personales</h3>
           <hr />
           <div className="user__section__row">
             <h4>Nombre </h4>
@@ -45,7 +46,12 @@ export const User = () => {
             <p>{deliveryTruck?.coldChamber ? "Si" : "No"}</p>
           </div>
 
-          <button className="btn-load password" onClick={() => setMenu(true)}>
+          <button
+            className="btn-load password"
+            onClick={() =>
+              navigate(`/user/cambiar-password/${deliveryTruck.user._id}`)
+            }
+          >
             Cambiar contraseña
           </button>
           <button className="btn-load" onClick={() => dispatch(logOut())}>
@@ -53,7 +59,6 @@ export const User = () => {
           </button>
         </section>
       </main>
-      {menu && <ChangePassword id={deliveryTruck.user._id} setMenu={setMenu} />}
     </>
   );
 };

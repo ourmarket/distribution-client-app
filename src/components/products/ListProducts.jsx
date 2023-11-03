@@ -7,8 +7,11 @@ export const ListProducts = () => {
 
   return (
     <section className="listProducts__container">
-      <h1>Lista de productos</h1>
-      <h3>a repartir hoy</h3>
+      <h1>
+        Total de productos <br />
+        ordenados
+      </h1>
+
       <div className="listProducts__products">
         {all.map((product) => (
           <div className="listProducts__products__card">
@@ -17,13 +20,9 @@ export const ListProducts = () => {
             </div>
             <div className="listProducts__products__card-info">
               <h4>{product.name}</h4>
-              <div>
-                <h4>
-                  <span>
-                    Cantidad: {formatQuantity(product.totalQuantity)} unid.
-                  </span>
-                </h4>
-              </div>
+              <span className="listProducts__products__card-quantity">
+                {formatQuantity(product.totalQuantity)}
+              </span>
             </div>
           </div>
         ))}

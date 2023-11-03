@@ -11,6 +11,7 @@ import { OrderDetailUnpaidPage } from "../pages/OrderDetailUnpaidPage";
 import { MapPage } from "../pages/MapPage";
 import { LocalizationPage } from "../pages/LocalizationPage";
 import { HistoryPage } from "../pages/HistoryPage";
+import { ChangePasswordPage } from "../pages/ChangePassword";
 
 export const AppRouter = () => {
   return (
@@ -30,6 +31,11 @@ export const AppRouter = () => {
             <Route path="/productos" element={<ListProductsPage />} />
 
             <Route path="/user" element={<UserPage />} />
+            <Route
+              path="/user/cambiar-password/:id"
+              element={<ChangePasswordPage />}
+            />
+
             <Route path="/mapa" element={<MapPage />} />
             <Route path="/historial" element={<HistoryPage />} />
             <Route path="/home/ubicacion/:id" element={<LocalizationPage />} />

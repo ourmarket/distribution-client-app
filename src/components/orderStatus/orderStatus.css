@@ -1,19 +1,26 @@
 .todos__container {
   min-height: calc(100vh + 150px);
   text-align: center;
-  padding: 20px 10px;
+  padding: 10px 10px;
   margin-bottom: 80px;
 }
 .todos__container h2 {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   font-family: var(--font-1);
   letter-spacing: 2px;
   position: relative;
+  background: var(--gradient-blue);
+  color: var(--color-white);
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
 }
 .todos__container h2 span {
   position: absolute;
-  left: 0;
-  top: 5px;
+  left: 10px;
+  top: 22px;
 }
 .row {
   display: flex;
@@ -46,8 +53,8 @@
 }
 
 .order__card__container {
-  box-shadow: 3px 3px 5px #ccc, -3px -1px 5px #ccc;
-  padding: 10px 10px;
+  box-shadow: var(--box-shadow-1);
+  padding: 15px 15px;
   border-radius: 5px;
   margin-bottom: 15px;
   background-color: white;

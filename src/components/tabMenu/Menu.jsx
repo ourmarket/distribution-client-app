@@ -71,16 +71,22 @@ export const Menu = () => {
               <span className="menu__title">Produc.</span>
             </Link>
           </li>
-          <li className={pathname === "/user" ? "list__li active" : "list__li"}>
+          <li
+            className={
+              pathname === "/user" || splitPath.includes("user")
+                ? "list__li active"
+                : "list__li"
+            }
+          >
             <Link to="/user">
               <BiUser />
               <span className="menu__title">Perfil</span>
             </Link>
           </li>
-          <div class="indicator"></div>
+          <div className="indicator"></div>
         </ul>
       </section>
-      <div class="white"></div>
+      <div className="white"></div>
     </>
   );
 };
