@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import "./user.css";
+import styles from "./user.module.css";
 import * as Yup from "yup";
 import { usePutUserChangePasswordMutation } from "../../api/apiUser";
 import { useState } from "react";
@@ -18,7 +18,6 @@ const SignupSchema = Yup.object().shape({
 
 export const ChangePassword = ({ id }) => {
   const navigate = useNavigate();
-
   const [editUser, { isLoading, isError }] =
     usePutUserChangePasswordMutation(id);
   const [error, setError] = useState("");
@@ -46,14 +45,14 @@ export const ChangePassword = ({ id }) => {
   };
 
   return (
-    <div className="change__password__container">
+    <div className={styles.change__password__container}>
       <h1>
         <span onClick={() => navigate("/user")}>
           <IoMdArrowRoundBack />
         </span>
         Cambiar contraseña
       </h1>
-      <div className="change__password__wrapper">
+      <div className={styles.change__password__wrapper}>
         <Formik
           initialValues={{
             password: "",
@@ -72,53 +71,48 @@ export const ChangePassword = ({ id }) => {
                 name="password"
                 placeholder="Ingresa tu contraseña actual"
               />
-
               <ErrorMessage
                 name="password"
                 component="p"
-                className="password_error"
+                className={styles.password_error}
               />
               <Field
                 type="password"
                 name="newPassword"
                 placeholder="Ingresa tu nuevo password"
               />
-
               <ErrorMessage
                 name="newPassword"
                 component="p"
-                className="password_error"
+                className={styles.password_error}
               />
               <Field
                 type="password"
                 name="newPassword2"
                 placeholder="Re ingresa tu nuevo password"
               />
-
               <ErrorMessage
                 name="newPassword2"
                 component="p"
-                className="password_error"
+                className={styles.password_error}
               />
-
               {error && <p style={{ color: "red" }}>{}</p>}
-
               <button
+                style={{ marginTop: "10px" }}
                 className={`btn__estado btn-load  ${
                   isLoading ? "button--loading" : ""
                 }`}
                 type="submit"
                 disabled={isLoading}
               >
-                <span className="button__text">Enviar</span>
+                <span className={styles.button__text}>Enviar</span>
               </button>
-
               {isError && (
-                <p className="form__error">
+                <p className={styles.form__error}>
                   ❌Error, tu password no se ha cambiado
                 </p>
               )}
-              {error && <p className="form__error">{error}</p>}
+              {error && <p className={styles.form__error}>{error}</p>}
             </Form>
           )}
         </Formik>

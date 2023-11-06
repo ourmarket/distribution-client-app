@@ -73,3 +73,12 @@
   padding: 1px 3px;
   border-radius: 5px;
 }
+.pendiente {
+  background-color: var(--color-pendiente);
+}
+.entregado {
+  background-color: var(--color-completado);
+}
+.rechazado {
+  background-color: var(--color-rechazado);
+}

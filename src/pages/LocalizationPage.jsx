@@ -1,17 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useLoadScript } from "@react-google-maps/api";
 import Loading from "../components/loading/Loading";
-
-import { Localization } from "../components/localization/Localization";
 import { useGetOrderQuery } from "../api/apiOrders";
 import { useParams } from "react-router-dom";
 import { Error } from "../components/error/Error";
 import { useContext } from "react";
 import { LocationContext } from "../context/LocationContext";
+import { useGetDeliveryZonesQuery } from "../api/deliveryZoneApi";
+import { Localization } from "../components/orders/06-order-localization/Localization";
 
 export const LocalizationPage = () => {
   const { id } = useParams();
   const { data: orderData, isLoading: l1, isError: e1 } = useGetOrderQuery(id);
+  const {
+    data: dataZones,
+    isLoading: l2,
+    isError: e2,
+  } = useGetDeliveryZonesQuery();
+
   const { data: deliveryLocation } = useContext(LocationContext);
 
   const { isLoaded } = useLoadScript({
@@ -22,12 +28,13 @@ export const LocalizationPage = () => {
 
   return (
     <>
-      {(l1 || !isLoaded) && <Loading />}
-      {e1 && <Error />}
-      {orderData && deliveryLocation && isLoaded && (
+      {(l1 || l2) && <Loading />}
+      {(e1 || e2) && <Error />}
+      {orderData && deliveryLocation && dataZones && isLoaded && (
         <Localization
           order={orderData.data.order}
           deliveryLocation={deliveryLocation}
+          zones={dataZones.data.deliveryZones}
         />
       )}
     </>

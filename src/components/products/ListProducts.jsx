@@ -1,26 +1,25 @@
 import { useSelector } from "react-redux";
-import "./listProducts.css";
+import styles from "./listProducts.module.css";
 import { formatQuantity } from "../../utils/quantityFormat";
 
 export const ListProducts = () => {
   const { all } = useSelector((store) => store.products);
 
   return (
-    <section className="listProducts__container">
+    <section className={styles.listProducts__container}>
       <h1>
         Total de productos <br />
         ordenados
       </h1>
-
-      <div className="listProducts__products">
+      <div className={styles.listProducts__products}>
         {all.map((product) => (
-          <div className="listProducts__products__card">
-            <div className="listProducts__products__card-img">
+          <div className={styles.listProducts__products__card}>
+            <div className={styles.listProducts__products__cardImg}>
               <img src={product.img} alt="" />
             </div>
-            <div className="listProducts__products__card-info">
+            <div className={styles.listProducts__products__cardInfo}>
               <h4>{product.name}</h4>
-              <span className="listProducts__products__card-quantity">
+              <span className={styles.listProducts__products__cardQuantity}>
                 {formatQuantity(product.totalQuantity)}
               </span>
             </div>
