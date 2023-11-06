@@ -1,13 +1,12 @@
 import { useState } from "react";
-import "./orderDetail.css";
-import { useGetClientOrderDebtQuery } from "../../api/apiOrders";
-import Loading from "../loading/Loading";
-import { OrderMenu } from "./componets/orderMenu/OrderMenu";
+import styles from "./orderDetail.module.css";
 import { OrderMain } from "./componets/orderMain/OrderMain";
+import Loading from "../../loading/Loading";
+import { useGetClientOrderDebtQuery } from "../../../api/apiOrders";
+import { OrderPayment } from "../04-order-payment/OrderPayment";
 
 export const OrderDetail = ({ order, id }) => {
   const [menu, setMenu] = useState(false);
-
   const { data: ordersDebt, isLoading: l2 } = useGetClientOrderDebtQuery(
     order.client
   );
@@ -19,8 +18,11 @@ export const OrderDetail = ({ order, id }) => {
   const unpaidOrders = ordersDebt?.data?.orders;
 
   return (
-    <section className="pedido__container" style={{ marginBottom: "50px" }}>
-      {menu && <OrderMenu order={order} id={id} setMenu={setMenu} />}
+    <section
+      className={styles.pedido__container}
+      style={{ marginBottom: "50px" }}
+    >
+      {menu && <OrderPayment order={order} id={id} setMenu={setMenu} />}
       {!menu && (
         <OrderMain
           order={order}

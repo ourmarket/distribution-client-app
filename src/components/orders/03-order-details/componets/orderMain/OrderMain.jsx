@@ -5,8 +5,9 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { PdfViewOrder } from "../orderRecipePdf/PdfViewOrder";
-import { formatDateMonth } from "../../../../utils/dateFormat";
+import { formatDateMonth } from "../../../../../utils/dateFormat";
 import { useEffect } from "react";
+import styles from "../../orderDetail.module.css";
 
 export const OrderMain = ({ order, unpaidOrders, setMenu }) => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export const OrderMain = ({ order, unpaidOrders, setMenu }) => {
 
   return (
     <>
-      <h2 className="detail__title">
+      <h2 className={styles.detail__title}>
         <span onClick={() => navigate(-1)}>
           <IoMdArrowRoundBack />
         </span>
@@ -31,12 +32,11 @@ export const OrderMain = ({ order, unpaidOrders, setMenu }) => {
       {order.payment?.cash || order.payment?.transfer || order.payment?.debt ? (
         <DataPaid order={order} />
       ) : null}
-
-      <button className="btn__estado " onClick={() => setMenu(true)}>
+      <button className={`${styles.btn__estado}`} onClick={() => setMenu(true)}>
         Entregar Pedido
       </button>
       <button
-        className="btn__volver "
+        className={`${styles.btn__volver}`}
         onClick={() => navigate(`/home/ubicacion/${id}`)}
       >
         Ver Ruta
@@ -47,7 +47,7 @@ export const OrderMain = ({ order, unpaidOrders, setMenu }) => {
           order.shippingAddress.lastName
         }-${formatDateMonth(order.createdAt)}.pdf`}
       >
-        <button className="btn__volver">Descargar Factura</button>
+        <button className={`${styles.btn__volver}`}>Descargar Factura</button>
       </PDFDownloadLink>
     </>
   );

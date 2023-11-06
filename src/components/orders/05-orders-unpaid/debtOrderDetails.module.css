@@ -5,13 +5,20 @@
   padding-bottom: 60px;
 }
 .debtOrderDetails__container h2 {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   font-family: var(--font-1);
   letter-spacing: 2px;
   position: relative;
+  background: var(--gradient-blue);
+  color: var(--color-white);
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
 }
 .debtOrderDetails__container h2 span {
   position: absolute;
-  left: 0;
-  top: 5px;
+  left: 10px;
+  top: 22px;
 }

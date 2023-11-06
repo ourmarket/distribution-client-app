@@ -1,13 +1,14 @@
-import "./debtOrderDetails.css";
 import { useNavigate } from "react-router-dom";
-import { DataOrder } from "../orderDetails/componets/orderMain/DataOrder";
-import { DataPaid } from "../orderDetails/componets/orderMain/DataPaid";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { DataOrder } from "../03-order-details/componets/orderMain/DataOrder";
+import { DataPaid } from "../03-order-details/componets/orderMain/DataPaid";
+import styles from "./debtOrderDetails.module.css";
 
 export const DebtOrderDetails = ({ order }) => {
   const navigate = useNavigate();
+
   return (
-    <section className="debtOrderDetails__container">
+    <section className={styles.debtOrderDetails__container}>
       <h2>
         <span onClick={() => navigate(-1)}>
           <IoMdArrowRoundBack />

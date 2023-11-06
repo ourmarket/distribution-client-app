@@ -1,6 +1,6 @@
 import { Document, Page, Text, View } from "@react-pdf/renderer";
-import { dateToLocalDate } from "../../../../utils/dateFormat";
-import { formatPrice } from "../../../../utils/formatPrice";
+import { dateToLocalDate } from "../../../../../utils/dateFormat";
+import { formatPrice } from "../../../../../utils/formatPrice";
 
 export const PdfViewOrder = ({ order, unpaidOrders }) => {
   const totalDebt = unpaidOrders.reduce(
@@ -186,7 +186,7 @@ export const PdfViewOrder = ({ order, unpaidOrders }) => {
                 {product.totalQuantity}
               </Text>
               <Text style={{ fontSize: "11px", flex: 2.9, textAlign: "left" }}>
-                {product.description}
+                {product.name}
               </Text>
               <Text style={{ fontSize: "11px", flex: 1, textAlign: "center" }}>
                 {formatPrice(product.unitPrice)}

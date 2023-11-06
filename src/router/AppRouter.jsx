@@ -3,7 +3,6 @@ import { HomePage } from "../pages/HomePage";
 import { ListProductsPage } from "../pages/ListProductsPage";
 import { LoginPage } from "../pages/LoginPage";
 import { OrderDetailPage } from "../pages/OrderDetailPage";
-import { OrderStatusPage } from "../pages/OrderStatusPage";
 import { UserPage } from "../pages/UserPage";
 import PersistLogin from "./PersitRouter";
 import RequireAuth from "./RequiereAuth";
@@ -12,6 +11,7 @@ import { MapPage } from "../pages/MapPage";
 import { LocalizationPage } from "../pages/LocalizationPage";
 import { HistoryPage } from "../pages/HistoryPage";
 import { ChangePasswordPage } from "../pages/ChangePassword";
+import { OrderListPage } from "../pages/OrderListPage";
 
 export const AppRouter = () => {
   return (
@@ -22,7 +22,7 @@ export const AppRouter = () => {
         <Route element={<PersistLogin />}>
           <Route element={<RequireAuth />}>
             <Route path="/" element={<HomePage />} />
-            <Route path="/home/ordenes/:status" element={<OrderStatusPage />} />
+            <Route path="/home/ordenes/:status" element={<OrderListPage />} />
             <Route path="/home/order/:id" element={<OrderDetailPage />} />
             <Route
               path="/home/orderUnpaid/:id"

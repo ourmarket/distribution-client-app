@@ -1,19 +1,19 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
-import { usePutOrderMutation } from "../../../../api/apiOrders";
+import { usePutOrderMutation } from "../../../api/apiOrders";
 import * as Yup from "yup";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useEffect } from "react";
+import styles from "./orderPayment.module.css";
 
 const SignupSchema = Yup.object().shape({
   status: Yup.string().required("Requerido"),
 });
 
-export const OrderMenu = ({ order, id, setMenu }) => {
+export const OrderPayment = ({ order, id, setMenu }) => {
   const [cash, setCash] = useState(order?.payment?.cash || 0);
   const [transfer, setTransfer] = useState(order?.payment?.transfer || 0);
   const [debt, setDebt] = useState(order?.payment?.debt || 0);
-
   const [editOrder, { isLoading: l1, isError: e1 }] = usePutOrderMutation();
 
   const handleSubmit = async (values) => {
@@ -40,14 +40,17 @@ export const OrderMenu = ({ order, id, setMenu }) => {
     const rest = order.total - transfer - debt;
     setCash(rest);
   };
+
   const handlerTransfer = () => {
     const rest = order.total - cash - debt;
     setTransfer(rest);
   };
+
   const handlerDebt = () => {
     const rest = order.total - transfer - cash;
     setDebt(rest);
   };
+
   useEffect(() => {
     setTimeout(() => {
       window.scrollTo(0, 0);
@@ -55,14 +58,14 @@ export const OrderMenu = ({ order, id, setMenu }) => {
   }, []);
 
   return (
-    <div className="orderMenu__container">
+    <div className={styles.OrderPayment__container}>
       <h2>
         <span onClick={() => setMenu(false)}>
           <IoMdArrowRoundBack />
         </span>
         Entregar Pedido
       </h2>
-      <div className="orderMenu__card">
+      <div className={styles.OrderPayment__card}>
         <h3>Datos del pedido</h3>
         <hr />
         <Formik
@@ -91,7 +94,7 @@ export const OrderMenu = ({ order, id, setMenu }) => {
               <ErrorMessage
                 name="status"
                 component="p"
-                className="login__error"
+                className={styles.login__error}
               />
 
               <label htmlFor="">Efectivo</label>
@@ -102,11 +105,10 @@ export const OrderMenu = ({ order, id, setMenu }) => {
                 value={cash}
                 onChange={(e) => setCash(e.target.value)}
               />
-
               <ErrorMessage
                 name="cash"
                 component="p"
-                className="login__error"
+                className={styles.login__error}
               />
 
               <label htmlFor="">Transferencia</label>
@@ -117,12 +119,12 @@ export const OrderMenu = ({ order, id, setMenu }) => {
                 value={transfer}
                 onChange={(e) => setTransfer(e.target.value)}
               />
-
               <ErrorMessage
                 name="transfer"
                 component="p"
-                className="login__error"
+                className={styles.login__error}
               />
+
               <label htmlFor="">Debe</label>
               <Field
                 type="number"
@@ -131,12 +133,12 @@ export const OrderMenu = ({ order, id, setMenu }) => {
                 value={debt}
                 onChange={(e) => setDebt(e.target.value)}
               />
-
               <ErrorMessage
                 name="debt"
                 component="p"
-                className="login__error"
+                className={styles.login__error}
               />
+
               <label htmlFor="">Comentarios</label>
               <Field
                 as="textarea"
@@ -149,17 +151,19 @@ export const OrderMenu = ({ order, id, setMenu }) => {
               <ErrorMessage
                 name="commentary"
                 component="p"
-                className="login__error"
+                className={styles.login__error}
               />
+
               {e1 && (
                 <p style={{ color: "red" }}>
                   Ha ocurrido un error, orden no editada
                 </p>
               )}
-              <div className="autocomplete-btn__container">
+
+              <div className={styles["autocomplete-btn__container"]}>
                 <div onClick={handlerCash}>Efectivo</div>
                 <div onClick={handlerTransfer}>Transf.</div>
-                <div onClick={handlerDebt} id="autocomplete-btn-debt">
+                <div onClick={handlerDebt} id={styles.autocomplete_btn_debt}>
                   Debe
                 </div>
               </div>

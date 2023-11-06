@@ -98,24 +98,24 @@
 
 /* ---------------formulario cambiar estado------------ */
 
-.orderMenu__container {
+.OrderPayment__container {
   width: 100%;
   background-color: var(--color-white);
 
   min-height: 89vh;
 }
-.orderMenu__container h2 {
+.OrderPayment__container h2 {
   margin-bottom: 25px;
   font-family: var(--font-1);
   letter-spacing: 2px;
   position: relative;
 }
-.orderMenu__container h2 span {
+.OrderPayment__container h2 span {
   position: absolute;
   left: 5px;
   top: 20px;
 }
-.orderMenu__card {
+.OrderPayment__card {
   border: 1px solid #ccc;
   padding: 15px 15px;
   border-radius: 15px;
@@ -124,30 +124,30 @@
   background-color: white;
 }
 
-.orderMenu__container form {
+.OrderPayment__container form {
   display: flex;
   flex-direction: column;
   gap: 5px;
   text-align: left;
   margin-top: 14px;
 }
-.orderMenu__container form input {
+.OrderPayment__container form input {
   position: relative;
   padding: 8px;
 }
-.orderMenu__container form select {
+.OrderPayment__container form select {
   position: relative;
   padding: 8px;
 }
-.orderMenu__container form input[type="radio"] {
+.OrderPayment__container form input[type="radio"] {
   accent-color: red;
 }
 
-.orderMenu__container form label input {
+.OrderPayment__container form label input {
   margin-right: 5px;
 }
 
-.orderMenu__container form textarea {
+.OrderPayment__container form textarea {
   padding: 10px;
   font-size: 15px;
 }
@@ -198,4 +198,69 @@
 }
 .order__address img {
   width: 20px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+.col {
+  flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 10px 2px;
+}
+
+.pendiente {
+  background-color: var(--color-pendiente);
+  padding: 3px;
+
+  border-radius: 5px;
+}
+.entregado {
+  background-color: var(--color-completado);
+  padding: 3px;
+  color: #fff;
+  border-radius: 5px;
+}
+.rechazado {
+  background-color: var(--color-rechazado);
+  padding: 3px;
+  color: #fff;
+  border-radius: 5px;
+}
+.products__titles {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  background-color: #646464;
+  color: var(--color-white);
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  border: 1px solid #111;
+}
+.product__name {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.product__quantity {
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  min-width: 35px;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
 }
