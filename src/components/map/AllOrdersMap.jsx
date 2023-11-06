@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo } from "react";
 import { GoogleMap, InfoWindow, Marker, Polygon } from "@react-google-maps/api";
 import { formatPrice } from "../../utils/formatPrice";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { optionZones, zones } from "../../data/Zones";
 
 function ClientMarker({ data }) {
   const [open, setOpen] = useState(false);
@@ -83,9 +81,11 @@ function ClientMarker({ data }) {
   );
 }
 
-export const AllOrdersMap = ({ data }) => {
+export const AllOrdersMap = ({ data, zones, orders }) => {
+  console.log(zones);
+  const { superUserData } = useSelector((store) => store.authDelivery);
   const local = useMemo(
-    () => ({ lat: -34.570428718491605, lng: -58.743382510475065 }),
+    () => ({ lat: superUserData.lat, lng: superUserData.lng }),
     []
   );
   const center = useMemo(() => ({ lat: data.lat, lng: data.lng }), [data]);
@@ -102,7 +102,23 @@ export const AllOrdersMap = ({ data }) => {
     }),
     []
   );
-  const ordersDirections = useSelector((store) => store.order.allOrders);
+
+  const deliveryZones = zones.map((zone) => ({
+    id: zone._id,
+    path: zone.mapLimits,
+    option: {
+      fillColor: zone.fillColor,
+      fillOpacity: 0.2,
+      strokeColor: "blue",
+      strokeOpacity: 1,
+      strokeWeight: 2,
+      clickable: false,
+      draggable: false,
+      editable: false,
+      geodesic: false,
+      zIndex: 1,
+    },
+  }));
 
   return (
     <div>
@@ -118,16 +134,12 @@ export const AllOrdersMap = ({ data }) => {
           position={center}
           icon="https://i.ibb.co/p0vpNJ6/6643396-1.png"
         />
-        {ordersDirections.map((data) => (
+        {orders.map((data) => (
           <ClientMarker data={data} />
         ))}
-
-        <Polygon paths={zones.zona1} options={optionZones.zona1} />
-        <Polygon paths={zones.zona2} options={optionZones.zona2} />
-        <Polygon paths={zones.zona3} options={optionZones.zona3} />
-        <Polygon paths={zones.zona4} options={optionZones.zona4} />
-        <Polygon paths={zones.zona5} options={optionZones.zona5} />
-        <Polygon paths={zones.zona6} options={optionZones.zona6} />
+        {deliveryZones.map((zone) => (
+          <Polygon key={zone.id} paths={zone.path} options={zone.option} />
+        ))}
       </GoogleMap>
     </div>
   );

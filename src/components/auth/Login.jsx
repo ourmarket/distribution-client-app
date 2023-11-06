@@ -1,4 +1,3 @@
-import "./auth.css";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useLoginMutation } from "../../api/apiAuth";
 import { setCredentials } from "../../redux/authSlice";
 import { setUser } from "../../redux/userSlice";
+import styles from "./auth.module.css";
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Formato invalido").required("Requerido"),
@@ -15,7 +15,6 @@ const SignupSchema = Yup.object().shape({
 export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [loginDelivery, { isLoading, isError }] = useLoginMutation();
 
   const handleSubmit = async (values) => {
@@ -24,28 +23,29 @@ export const Login = () => {
         email: values.email,
         password: values.password,
       }).unwrap();
+
       if (userData) {
         dispatch(setCredentials({ ...userData }));
         dispatch(setUser(userData.deliveryTruck));
-
         navigate("/");
       }
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
-    <main className="auth__container">
+    <main className={styles.auth__container}>
       <img
         src="https://ik.imagekit.io/mrprwema7/OurMarket/our-market-low-resolution-logo-color-on-transparent-background_tryvGRTNa.png?updatedAt=1695680889949"
         alt="logo"
-        className="logo__img"
+        className={styles.logo__img}
       />
-      <section className="auth__form">
-        <div className="auth__form__container">
-          <h2 className="title">Ingresar</h2>
+      <section className={styles.auth__form}>
+        <div className={styles.auth__form__container}>
+          <h2 className={styles.title}>Ingresar</h2>
           {isError && (
-            <p className="login__error">
+            <p className={styles.login__error}>
               Error en el login, inténtelo nuevamente
             </p>
           )}
@@ -62,7 +62,7 @@ export const Login = () => {
           >
             {({ isSubmitting }) => (
               <Form>
-                <div className="input__container">
+                <div className={styles.input__container}>
                   <img
                     src="https://ik.imagekit.io/mrprwema7/OurMarket/user_OkKLt0tst%20(1)__K2sUFDZJ.png?updatedAt=1695681678392"
                     alt="icono usuario"
@@ -73,18 +73,17 @@ export const Login = () => {
                     placeholder="Ingresa tu email"
                   />
                 </div>
-
                 <ErrorMessage
                   name="email"
                   component="p"
-                  className="login__error"
+                  className={styles.login__error}
                 />
-                <div className="input__container">
+
+                <div className={styles.input__container}>
                   <img
                     src="https://ik.imagekit.io/mrprwema7/OurMarket/password_sMXDhy2rr%20(1)_Z8pTPQmhK.png?updatedAt=1695681678685"
                     alt="icono password"
                   />
-
                   <Field
                     type="password"
                     name="password"
@@ -94,7 +93,7 @@ export const Login = () => {
                 <ErrorMessage
                   name="password"
                   component="p"
-                  className="login__error"
+                  className={styles.login__error}
                 />
 
                 <button
@@ -102,7 +101,7 @@ export const Login = () => {
                   type="submit"
                   disabled={isLoading}
                 >
-                  <span className="button__text">Enviar</span>
+                  <span className={styles.button__text}>Enviar</span>
                 </button>
               </Form>
             )}
