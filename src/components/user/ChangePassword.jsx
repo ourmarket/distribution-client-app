@@ -34,7 +34,7 @@ export const ChangePassword = ({ id }) => {
           showConfirmButton: false,
           timer: 2500,
         });
-        navigate("/user");
+        navigate(`/user/${id}`);
       }
     } catch (error) {
       console.log(error);
@@ -47,7 +47,7 @@ export const ChangePassword = ({ id }) => {
   return (
     <div className={styles.change__password__container}>
       <h1>
-        <span onClick={() => navigate("/user")}>
+        <span onClick={() => navigate(`/user/${id}`)}>
           <IoMdArrowRoundBack />
         </span>
         Cambiar contraseña
