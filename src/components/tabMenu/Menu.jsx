@@ -5,6 +5,7 @@ import { BsBoxSeam, BsFillGeoAltFill } from "react-icons/bs";
 import { GiHistogram } from "react-icons/gi";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export const Menu = () => {
   const { pathname } = useLocation();
@@ -28,6 +29,8 @@ export const Menu = () => {
     document.documentElement.style.setProperty("--widthMenu4", `${medida4}px`);
     document.documentElement.style.setProperty("--widthMenu5", `${medida5}px`);
   }, [width]);
+
+  const { user } = useSelector((store) => store.authDelivery);
 
   return (
     <>
@@ -78,7 +81,7 @@ export const Menu = () => {
                 : "list__li"
             }
           >
-            <Link to="/user">
+            <Link to={`/user/${user}`}>
               <BiUser />
               <span className="menu__title">Perfil</span>
             </Link>

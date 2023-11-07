@@ -1,23 +1,24 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useGetUserDeliveryTruckQuery } from "../api/apiDeliveryTruck";
+import { Error } from "../components/error/Error";
 import Loading from "../components/loading/Loading";
 import { User } from "../components/user/User";
-import { getUser } from "../redux/userSlice";
+
+import { useParams } from "react-router-dom";
 
 export const UserPage = () => {
-  const dispatch = useDispatch();
+  const { id } = useParams();
 
-  const { user: id } = useSelector((store) => store.authDelivery);
-  const { deliveryTruck } = useSelector((store) => store.user);
+  const {
+    data: dataUser,
+    isLoading,
+    isError,
+  } = useGetUserDeliveryTruckQuery(id);
 
-  const { data: dataUser } = useGetUserDeliveryTruckQuery(id);
-
-  useEffect(() => {
-    if (dataUser) {
-      dispatch(getUser(dataUser.data.deliveryTruck[0]));
-    }
-  }, [dataUser, dispatch]);
-
-  return <>{deliveryTruck ? <User /> : <Loading />}</>;
+  return (
+    <>
+      {isError && <Error />}
+      {isLoading && <Loading />}
+      {dataUser && <User deliveryTruck={dataUser.data.deliveryTruck[0]} />}
+    </>
+  );
 };

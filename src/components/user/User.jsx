@@ -1,10 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logOut } from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 import styles from "./user.module.css";
 
-export const User = () => {
-  const { deliveryTruck } = useSelector((state) => state.user);
+export const User = ({ deliveryTruck }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
