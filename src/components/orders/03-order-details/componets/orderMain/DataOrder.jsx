@@ -32,9 +32,14 @@ export const DataOrder = ({ order }) => {
         <span className={styles.product} key={item._id}>
           <div className={styles.product__name}>
             <div className={styles.product__quantity}>{item.totalQuantity}</div>
-            <p>{item.name}</p>
+            <p>
+              {item.name}{" "}
+              <span style={{ color: "#ccc" }}>
+                {`(${formatPrice(item.totalPrice / item.totalQuantity)} und.) `}
+              </span>
+            </p>
           </div>
-          <p>{formatPrice(item.totalPrice / item.totalQuantity)}</p>
+          <p style={{ fontWeight: 800 }}>{formatPrice(item.totalPrice)}</p>
         </span>
       ))}
       <div
