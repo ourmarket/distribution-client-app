@@ -51,7 +51,7 @@ export const DataOrder = ({ order }) => {
       </div>
       <div className={`${styles.row} ${styles.flex} ${styles.sb}`}>
         <h4>Envío</h4>
-        <p>${order.tax}</p>
+        <p>${order.tax || 0}</p>
       </div>
       <div className={`${styles.row} ${styles.flex} ${styles.sb}`}>
         <p className={styles.bold}>Total</p>
