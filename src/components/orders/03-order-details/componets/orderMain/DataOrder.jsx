@@ -26,7 +26,7 @@ export const DataOrder = ({ order }) => {
       )}
       <span className={styles.products__titles}>
         <h4>Cant./Producto</h4>
-        <h4>Precio Unid.</h4>
+        <h4>Total</h4>
       </span>
       {order.orderItems.map((item) => (
         <span className={styles.product} key={item._id}>
