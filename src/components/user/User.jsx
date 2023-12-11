@@ -2,10 +2,16 @@ import { useDispatch } from "react-redux";
 import { logOut } from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 import styles from "./user.module.css";
+import { useLogoutMutation } from "../../api/apiAuth";
+import { apiSlice } from "../../api/apiSlice";
+import { useSocket } from "../../hooks/useSockets";
 
 export const User = ({ deliveryTruck }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { disconnectSocket } = useSocket();
+
+  const [apiLogOut] = useLogoutMutation();
 
   return (
     <>
@@ -51,7 +57,15 @@ export const User = ({ deliveryTruck }) => {
           >
             Cambiar contraseña
           </button>
-          <button className="btn-load" onClick={() => dispatch(logOut())}>
+          <button
+            className="btn-load"
+            onClick={() => {
+              dispatch(logOut());
+              disconnectSocket();
+              dispatch(apiSlice.util.resetApiState());
+              apiLogOut();
+            }}
+          >
             Cerrar sesión
           </button>
         </section>

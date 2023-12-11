@@ -6,6 +6,7 @@ import { useLoginMutation } from "../../api/apiAuth";
 import { setCredentials } from "../../redux/authSlice";
 import { setUser } from "../../redux/userSlice";
 import styles from "./auth.module.css";
+import { useEffect, useState } from "react";
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Formato invalido").required("Requerido"),
@@ -17,16 +18,42 @@ export const Login = () => {
   const navigate = useNavigate();
   const [loginDelivery, { isLoading, isError }] = useLoginMutation();
 
+  const [rememberMe, setRememberMe] = useState(true);
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("rememberedEmail_deliveryApp");
+    const storedClientId = localStorage.getItem(
+      "rememberedClientId_deliveryApp"
+    );
+
+    if (storedEmail && storedClientId) {
+      setRememberMe(true);
+    }
+  }, []);
+
   const handleSubmit = async (values) => {
     try {
       const userData = await loginDelivery({
         email: values.email,
+        clientId: values.clientId,
         password: values.password,
       }).unwrap();
 
       if (userData) {
         dispatch(setCredentials({ ...userData }));
         dispatch(setUser(userData.deliveryTruck));
+
+        if (rememberMe) {
+          localStorage.setItem("rememberedEmail_deliveryApp", values.email);
+          localStorage.setItem(
+            "rememberedClientId_deliveryApp",
+            values.clientId
+          );
+        } else {
+          localStorage.removeItem("rememberedEmail_deliveryApp");
+          localStorage.removeItem("rememberedClientId_deliveryApp");
+        }
+
         navigate("/");
       }
     } catch (error) {
@@ -51,7 +78,12 @@ export const Login = () => {
           )}
           <Formik
             initialValues={{
-              email: "",
+              email: rememberMe
+                ? localStorage.getItem("rememberedEmail_deliveryApp") || ""
+                : "",
+              clientId: rememberMe
+                ? localStorage.getItem("rememberedClientId_deliveryApp") || ""
+                : "",
               password: "",
             }}
             validationSchema={SignupSchema}
@@ -78,6 +110,22 @@ export const Login = () => {
                   component="p"
                   className={styles.login__error}
                 />
+                <div className={styles.input__container}>
+                  <img
+                    src="https://ik.imagekit.io/mrprwema7/OurMarket/user_OkKLt0tst%20(1)__K2sUFDZJ.png?updatedAt=1695681678392"
+                    alt="icono usuario"
+                  />
+                  <Field
+                    type="text"
+                    name="clientId"
+                    placeholder="Ingresa el id del cliente"
+                  />
+                </div>
+                <ErrorMessage
+                  name="clientId"
+                  component="p"
+                  className={styles.login__error}
+                />
 
                 <div className={styles.input__container}>
                   <img
@@ -95,6 +143,16 @@ export const Login = () => {
                   component="p"
                   className={styles.login__error}
                 />
+                <div className={styles.checkbox}>
+                  <input
+                    type="checkbox"
+                    name="remember"
+                    id="remember"
+                    checked={rememberMe}
+                    onChange={() => setRememberMe(!rememberMe)}
+                  />
+                  <label htmlFor="remember">Recordar</label>
+                </div>
 
                 <button
                   className={`btn-load ${isLoading ? "button--loading" : ""}`}
