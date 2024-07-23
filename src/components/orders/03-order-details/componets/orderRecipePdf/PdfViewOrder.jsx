@@ -9,13 +9,13 @@ export const PdfViewOrder = ({ order, unpaidOrders }) => {
     0
   );
 
-  console.log("Actualizado");
+  console.log("Actualizado 2");
 
-  const data = useSelector((store) => store.authDelivery);
+  // const data = useSelector((store) => store.authDelivery);
 
-  console.log("data>>>>>>>>>", data);
+  // console.log("data>>>>>>>>>", data);
 
-  const superUserData = data?.superUserData || null;
+  const superUserData = null;
 
   return (
     <Document>
