@@ -1,12 +1,15 @@
 import { Document, Page, Text, View } from "@react-pdf/renderer";
 import { dateToLocalDate } from "../../../../../utils/dateFormat";
 import { formatPrice } from "../../../../../utils/formatPrice";
+import { useSelector } from "react-redux";
 
 export const PdfViewOrder = ({ order, unpaidOrders }) => {
   const totalDebt = unpaidOrders.reduce(
     (acc, curr) => acc + curr.payment.debt,
     0
   );
+
+  const { superUserData } = useSelector((store) => store.authDelivery);
 
   return (
     <Document>
@@ -15,7 +18,6 @@ export const PdfViewOrder = ({ order, unpaidOrders }) => {
         style={{
           display: "flex",
           flexDirection: "column",
-
           backgroundColor: "white",
         }}
       >
@@ -37,7 +39,7 @@ export const PdfViewOrder = ({ order, unpaidOrders }) => {
               textAlign: "center",
             }}
           >
-            Avícola Martina
+            {superUserData ? superUserData.businessName : ""}
           </Text>
           <Text
             style={{
@@ -46,7 +48,7 @@ export const PdfViewOrder = ({ order, unpaidOrders }) => {
               textAlign: "center",
             }}
           >
-            San Miguel
+            {superUserData ? superUserData.city : ""}
           </Text>
           <Text
             style={{
@@ -55,7 +57,7 @@ export const PdfViewOrder = ({ order, unpaidOrders }) => {
               textAlign: "center",
             }}
           >
-            Av.Balbin 4872
+            {superUserData ? superUserData.address : ""}
           </Text>
           <View
             style={{
