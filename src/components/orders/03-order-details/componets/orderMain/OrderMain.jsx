@@ -8,10 +8,13 @@ import { PdfViewOrder } from "../orderRecipePdf/PdfViewOrder";
 import { formatDateMonth } from "../../../../../utils/dateFormat";
 import { useEffect } from "react";
 import styles from "../../orderDetail.module.css";
+import { useSelector } from "react-redux";
 
 export const OrderMain = ({ order, unpaidOrders, setMenu }) => {
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const { superUserData } = useSelector((store) => store.authDelivery);
 
   useEffect(() => {
     setTimeout(() => {
@@ -42,7 +45,13 @@ export const OrderMain = ({ order, unpaidOrders, setMenu }) => {
         Ver Ruta
       </button>
       <PDFDownloadLink
-        document={<PdfViewOrder order={order} unpaidOrders={unpaidOrders} />}
+        document={
+          <PdfViewOrder
+            order={order}
+            unpaidOrders={unpaidOrders}
+            superUserData={superUserData}
+          />
+        }
         fileName={`${order.shippingAddress.name}-${
           order.shippingAddress.lastName
         }-${formatDateMonth(order.createdAt)}.pdf`}

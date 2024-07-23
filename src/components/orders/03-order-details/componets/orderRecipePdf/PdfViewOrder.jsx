@@ -1,21 +1,12 @@
 import { Document, Page, Text, View } from "@react-pdf/renderer";
 import { dateToLocalDate } from "../../../../../utils/dateFormat";
 import { formatPrice } from "../../../../../utils/formatPrice";
-// import { useSelector } from "react-redux";
 
-export const PdfViewOrder = ({ order, unpaidOrders }) => {
+export const PdfViewOrder = ({ order, unpaidOrders, superUserData }) => {
   const totalDebt = unpaidOrders.reduce(
     (acc, curr) => acc + curr.payment.debt,
     0
   );
-
-  console.log("Actualizado 3");
-
-  // const data = useSelector((store) => store.authDelivery);
-
-  // console.log("data>>>>>>>>>", data);
-
-  const superUserData = null;
 
   return (
     <Document>
