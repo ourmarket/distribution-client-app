@@ -9,6 +9,8 @@ export const PdfViewOrder = ({ order, unpaidOrders }) => {
     0
   );
 
+  console.log("Actualizado");
+
   const data = useSelector((store) => store.authDelivery);
 
   console.log("data>>>>>>>>>", data);
