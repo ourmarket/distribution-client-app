@@ -1,7 +1,7 @@
 import { Document, Page, Text, View } from "@react-pdf/renderer";
 import { dateToLocalDate } from "../../../../../utils/dateFormat";
 import { formatPrice } from "../../../../../utils/formatPrice";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 export const PdfViewOrder = ({ order, unpaidOrders }) => {
   const totalDebt = unpaidOrders.reduce(
@@ -9,7 +9,7 @@ export const PdfViewOrder = ({ order, unpaidOrders }) => {
     0
   );
 
-  console.log("Actualizado 2");
+  console.log("Actualizado 3");
 
   // const data = useSelector((store) => store.authDelivery);
 
