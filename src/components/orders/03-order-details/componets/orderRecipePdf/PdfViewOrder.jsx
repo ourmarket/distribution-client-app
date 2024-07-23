@@ -9,7 +9,9 @@ export const PdfViewOrder = ({ order, unpaidOrders }) => {
     0
   );
 
-  const { superUserData } = useSelector((store) => store.authDelivery);
+  const data = useSelector((store) => store.authDelivery);
+
+  const superUserData = data?.superUserData || null;
 
   return (
     <Document>
