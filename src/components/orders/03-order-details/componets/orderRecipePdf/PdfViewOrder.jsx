@@ -11,6 +11,8 @@ export const PdfViewOrder = ({ order, unpaidOrders }) => {
 
   const data = useSelector((store) => store.authDelivery);
 
+  console.log("data>>>>>>>>>", data);
+
   const superUserData = data?.superUserData || null;
 
   return (
